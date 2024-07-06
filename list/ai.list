@@ -1,0 +1,27 @@
+# OpenAI
+DOMAIN-SUFFIX,openai.com
+DOMAIN-SUFFIX,chatgpt.com
+
+
+# Microsoft Copilot
+# DOMAIN-KEYWORD,copilot
+DOMAIN-KEYWORD,bing
+DOMAIN-SUFFIX,copilot.microsoft.com
+DOMAIN-SUFFIX,bing.com
+DOMAIN-SUFFIX,bingapis.com
+DOMAIN,gateway.bingviz.microsoftapp.net
+DOMAIN-SUFFIX,bing-shopping.microsoft-falcon.io
+DOMAIN,self.events.data.microsoft.com
+DOMAIN-SUFFIX,sapphire.api.microsoftapp.net
+DOMAIN,prod.rewardsplatform.microsoft.com
+DOMAIN,api.msn.com
+DOMAIN,odc.officeapps.live.com
+DOMAIN-SUFFIX,msauth.net
+DOMAIN-SUFFIX,msftauth.net
+
+
+# DOMAIN-SUFFIX,perplexity.ai
+
+DOMAIN-SUFFIX,huggingface.co
+
+DOMAIN-SUFFIX,geospy.ai

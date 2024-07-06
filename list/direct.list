@@ -1,0 +1,16 @@
+# Steam下载
+DOMAIN-SUFFIX,steamserver.net
+DOMAIN-SUFFIX,cdn.steamstatic.com
+DOMAIN,dl.steam.clngaa.com
+DOMAIN,st.dl.eccdnx.com
+DOMAIN,xz.pphimalayanrt.com
+
+# Xbox
+DOMAIN-KEYWORD,xbox
+PROCESS-NAME,XboxPcApp.exe
+
+PROCESS-NAME,legendary.exe
+
+DOMAIN-SUFFIX,cdndrive.uk
+
+DOMAIN-KEYWORD,adobe
