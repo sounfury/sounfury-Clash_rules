@@ -21,3 +21,4 @@ DOMAIN-KEYWORD,listary
 
 #Spotify,除了登陆都走直连
 DOMAIN-SUFFIX,spotify.com
+DOMAIN,open.spotifycdn.com
