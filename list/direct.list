@@ -25,3 +25,9 @@ DOMAIN,open.spotifycdn.com
 
 #gamma
 DOMAIN-KEYWORD,gamma.app
+
+#智慧树
+DOMAIN-KEYWORD,zhihuishu
+
+#parsec
+PROCESS-NAME,parsecd.exe
