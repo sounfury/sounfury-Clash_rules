@@ -31,3 +31,26 @@ DOMAIN-KEYWORD,zhihuishu
 
 #parsec
 PROCESS-NAME,parsecd.exe
+
+# e-hentai
+DOMAIN-SUFFIX,e-hentai.org
+DOMAIN-SUFFIX,exhentai.org
+
+DOMAIN-SUFFIX,manhuabika.com
+DOMAIN-SUFFIX,iwara.tv
+DOMAIN-SUFFIX,njav.tv
+DOMAIN-SUFFIX,hanime1.me
+DOMAIN-SUFFIX,rule34video.com
+DOMAIN-SUFFIX,rule34video.party
+DOMAIN-SUFFIX,rule34.xxx
+DOMAIN-SUFFIX,missav.com
+DOMAIN-SUFFIX,supjav.com
+DOMAIN-SUFFIX,xslist.org
+DOMAIN-SUFFIX,netflav.com
+DOMAIN-SUFFIX,netflav5.com
+DOMAIN-SUFFIX,nhentai.net
+DOMAIN-SUFFIX,noy.asia
+DOMAIN-SUFFIX,asmregg.com
+DOMAIN-SUFFIX,ero-labs.com
+DOMAIN-SUFFIX,asmregg.xyz
+DOMAIN-SUFFIX,hl01.co
