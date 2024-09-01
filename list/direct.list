@@ -27,3 +27,7 @@ DOMAIN-KEYWORD,zhihuishu
 
 #parsec
 PROCESS-NAME,parsecd.exe
+
+#gitee
+
+DOMAIN-KEYWORD,gitee
