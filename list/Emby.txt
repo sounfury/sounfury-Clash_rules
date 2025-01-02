@@ -5,3 +5,4 @@ payload:
   # custom
   - DOMAIN,media.nijigem.by
   - DOMAIN-KEYWORD,pilipili
+  - DOMAIN,电棍专线.霹雳霹雳.com
