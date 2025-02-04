@@ -6,4 +6,4 @@ payload:
   - DOMAIN,media.nijigem.by
   - DOMAIN-KEYWORD,pilipili
   - DOMAIN,电棍专线.霹雳霹雳.com
-  - DOMAIN,xn--ohq746dhyifsj.xn--pp5aa2sb.com g
+  - DOMAIN-SUFFIX,micu.hk
