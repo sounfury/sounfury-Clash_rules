@@ -7,3 +7,4 @@ payload:
   - DOMAIN-KEYWORD,pilipili
   - DOMAIN,电棍专线.霹雳霹雳.com
   - DOMAIN-SUFFIX,micu.hk
+  tv.micu.h
