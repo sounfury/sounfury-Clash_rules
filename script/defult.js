@@ -304,7 +304,13 @@ const ruleProviderCommon = {
         "behavior": "classical",
         "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/ProxyGFW.list",
         "path": "./rules/ProxyGFW.list"
-      }
+      },
+      "Direct": {
+        ...ruleProviderCommon,
+        "behavior": "classical",
+        "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/direct.list",
+        "path": "./rules/Direct.list"
+      },
     };
   
     // 覆盖规则
@@ -325,6 +331,7 @@ const ruleProviderCommon = {
       "GEOSITE,gfw,国外网站",
       "GEOIP,private,DIRECT",
       "GEOIP,cn,DIRECT",
+      "RULE-SET,Direct,DIRECT",
       "MATCH,漏网之鱼"
     ];
   

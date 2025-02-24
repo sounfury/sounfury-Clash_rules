@@ -18,16 +18,5 @@ DOMAIN-KEYWORD,adobe
 # listary
 DOMAIN-KEYWORD,listary
 
-
-#gamma
-DOMAIN-KEYWORD,gamma.app
-
-#智慧树
-DOMAIN-KEYWORD,zhihuishu
-
-#parsec
-PROCESS-NAME,parsecd.exe
-
-#gitee
-
-DOMAIN-KEYWORD,gitee
+# tencent
+DOMAIN-KEYWORD,tencent
