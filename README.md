@@ -1,6 +1,8 @@
 自用
 https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rules/use.ini
 
+https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/refs/heads/main/script/defult.js
+
 修改于https://raw.githubusercontent.com/PosvdM/Clash-rules/main/rules/use.ini
 
 ## 增改项
