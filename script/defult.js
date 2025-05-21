@@ -11,6 +11,24 @@ const groupBaseOption = {
     "max-failed-times": 3,
 };
 
+// GitHub加速前缀
+const githubPrefix = "https://fastgh.lainbo.com/";
+
+// GEO 数据 GitHub 资源原始下载地址
+const rawGeoxURLs = {
+    geoip: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat",
+    geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat",
+    mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb",
+};
+
+// 生成带有加速前缀的 GEO 数据资源对象
+const accelURLs = Object.fromEntries(
+    Object.entries(rawGeoxURLs).map(([key, githubUrl]) => [
+        key,
+        `${githubPrefix}${githubUrl}`,
+    ])
+);
+
 // 程序入口
 function main(config) {
     const proxyCount = config?.proxies?.length ?? 0;
@@ -44,9 +62,7 @@ function main(config) {
     // 覆盖 geodata 配置
     config["geodata-mode"] = true;
     config["geox-url"] = {
-        "geoip": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat",
-        "geosite": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat",
-        "mmdb": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb",
+        ...accelURLs,
         "asn": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/GeoLite2-ASN.mmdb"
     };
 
