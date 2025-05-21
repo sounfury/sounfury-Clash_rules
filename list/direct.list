@@ -15,6 +15,9 @@ DOMAIN-SUFFIX,cdndrive.uk
 
 DOMAIN-KEYWORD,adobe
 
+#linux.do
+DOMAIN-SUFFIX,linux.do
+
 # listary
 DOMAIN-KEYWORD,listary
 
