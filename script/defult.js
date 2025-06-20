@@ -42,22 +42,11 @@ function main(config) {
     config["mixed-port"] = "7890";
     config["tcp-concurrent"] = true;
     config["allow-lan"] = true;
-    config["ipv6"] = false;
-    config["log-level"] = "info";
     config["unified-delay"] = "true";
     config["find-process-mode"] = "strict";
     config["global-client-fingerprint"] = "chrome";
 
-    // 覆盖 dns 配置
-    config["dns"] = {
-        "enable": true,
-        "listen": "0.0.0.0:1053",
-        "ipv6": false,
-        "enhanced-mode": "fake-ip",
-        "fake-ip-range": "198.18.0.1/16",
-        "fake-ip-filter": ["*", "+.lan", "+.local", "+.direct", "+.msftconnecttest.com", "+.msftncsi.com"],
-        "nameserver": ["223.5.5.5", "119.29.29.29"]
-    };
+  
 
     // 覆盖 geodata 配置
     config["geodata-mode"] = true;
