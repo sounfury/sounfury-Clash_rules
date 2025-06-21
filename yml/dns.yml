@@ -17,7 +17,7 @@ dns:
   nameserver:
     - https://223.5.5.5/dns-query
   fallback:
-    - https://dns.cloudflare.com/dns-query
+    - 45.90.28.230
   fallback-filter:
     geoip: true
     geoip-code: CN
@@ -26,5 +26,6 @@ dns:
     ipcidr:
       - 240.0.0.0/4
   nameserver-policy:
+    +.zhihuishu.com: https://223.5.5.5/dns-query#disable-ipv6=true
     geosite:cn,private,apple: https://223.5.5.5/dns-query
     geosite:!cn,gfw: https://dns.cloudflare.com/dns-query
