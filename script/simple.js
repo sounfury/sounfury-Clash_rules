@@ -81,7 +81,7 @@ function main(config) {
             ...groupBaseOption,
             "name": "手动切换",
             "type": "select",
-            "proxies": ["香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["冷门节点", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "include-all": true,
             "icon": "https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/applesafari.png"
         },
@@ -89,7 +89,7 @@ function main(config) {
             ...groupBaseOption,
             "name": "国外网站",
             "type": "select",
-            "proxies": ["手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png"
         },
 
@@ -99,21 +99,21 @@ function main(config) {
             ...groupBaseOption,
             "name": "谷歌服务",
             "type": "select",
-            "proxies": ["手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Google_Search.png"
         },
         {
             ...groupBaseOption,
             "name": "AI",
             "type": "select",
-            "proxies": ["手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
         },
         {
             ...groupBaseOption,
             "name": "游戏平台",
             "type": "select",
-            "proxies": ["手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png"
         },
         {
@@ -121,28 +121,28 @@ function main(config) {
             "name": "Emby",
             "type": "select",
             "include-all": true,
-            "proxies": ["手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Emby.png"
         },
         {
             ...groupBaseOption,
             "name": "Spotify",
             "type": "select",
-            "proxies": ["美国节点", "手动切换", "香港节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["美国节点", "冷门节点", "手动切换", "香港节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png"
         },
         {
             ...groupBaseOption,
             "name": "不许涩涩",
             "type": "select",
-            "proxies": ["手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Reject.png"
         },
         {
             ...groupBaseOption,
             "name": "漏网之鱼",
             "type": "select",
-            "proxies": ["手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg"
         },
         // 地区分组，默认自动选择
@@ -190,6 +190,14 @@ function main(config) {
             "include-all": true,
             "filter": "(?i)🇨🇳|🇹🇼|台湾|(\b(TW|Tai|Taiwan)\b)",
             "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png"
+        },
+        {
+            ...groupBaseOption,
+            "name": "冷门节点",
+            "type": "select",
+            "include-all": true,
+            "filter": "^(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|美国|洛杉矶|圣何塞|US|United States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇨🇳|🇹🇼|台湾|TW|Tai|Taiwan|剩余|Expire|Traffic|GB)).*",
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png"
         }
     ];
 
