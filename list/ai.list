@@ -20,6 +20,9 @@ DOMAIN-SUFFIX,msauth.net
 DOMAIN-SUFFIX,msftauth.net
 
 
+DOMAIN-SUFFIX,augmentcode.com
+
+
 # DOMAIN-SUFFIX,perplexity.ai
 
 DOMAIN-SUFFIX,huggingface.co
