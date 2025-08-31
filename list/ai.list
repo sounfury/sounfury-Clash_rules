@@ -29,3 +29,5 @@ DOMAIN-SUFFIX,huggingface.co
 
 DOMAIN-SUFFIX,geospy.ai
 
+# cursor
+DOMAIN-SUFFIX,cursor.sh
