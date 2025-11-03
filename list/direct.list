@@ -6,20 +6,20 @@ DOMAIN,st.dl.eccdnx.com
 DOMAIN,xz.pphimalayanrt.com
 
 # Xbox
-DOMAIN-KEYWORD,xbox
+DOMAIN-SUFFIX,xboxlive.cn
+DOMAIN-SUFFIX,xboxlive.com
+DOMAIN-SUFFIX,gamepass.com
+DOMAIN-SUFFIX,xboxservices.com
+DOMAIN-SUFFIX,digicert.com
+DOMAIN-SUFFIX,azurefd.net
+DOMAIN-SUFFIX,dl.delivery.mp.microsoft.com
+DOMAIN-SUFFIX,store-images.s-microsoft.com
+
 PROCESS-NAME,XboxPcApp.exe
 
-PROCESS-NAME,legendary.exe
 
 DOMAIN-SUFFIX,cdndrive.uk
 
-DOMAIN-KEYWORD,adobe
-
-# listary
-DOMAIN-KEYWORD,listary
-
-# tencent
-DOMAIN-KEYWORD,tencent
 
 
 DOMAIN-SUFFIX,bitwarden.com
