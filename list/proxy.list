@@ -18,3 +18,6 @@ DOMAIN-SUFFIX,apkcombo.com
 DOMAIN-SUFFIX,mypikpak.com
 
 PROCESS-NAME,gitkraken.exe
+
+#linux.do
+DOMAIN-SUFFIX,linux.do
