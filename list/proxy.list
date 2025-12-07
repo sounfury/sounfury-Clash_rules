@@ -22,4 +22,4 @@ PROCESS-NAME,gitkraken.exe
 #linux.do
 DOMAIN-SUFFIX,linux.do
 #antigravity
-PROCESS-NAME,language_server_windows_x64.exe,PROXY
+PROCESS-NAME,language_server_windows_x64.exe
