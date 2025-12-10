@@ -2,6 +2,8 @@
 DOMAIN,accounts.spotify.com
 DOMAIN,api-partner.spotify.com
 
-#Spotify,记住除了登陆都走直连
 DOMAIN-SUFFIX,spotify.com
 DOMAIN,open.spotifycdn.com
+
+
+DOMAIN-SUFFIX,spotifycdn.com
