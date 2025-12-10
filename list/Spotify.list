@@ -1,8 +1,6 @@
 #Spotify
 DOMAIN,accounts.spotify.com
 DOMAIN,api-partner.spotify.com
-
 DOMAIN-SUFFIX,spotify.com
-
-
 DOMAIN-SUFFIX,spotifycdn.com
+DOMAIN,open-exp.spotifycdn.com
