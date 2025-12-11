@@ -27,7 +27,6 @@ dns:
     ipcidr: # 在这个网段内的 IP 地址会被考虑为被污染的 IP
       - 240.0.0.0/4
   nameserver-policy:
-    rule-set:direct (Domain): https://dns.alidns.com/dns-query
     geosite:cn,private,apple: https://dns.alidns.com/dns-query
     geosite:!cn,gfw: https://posvdm.cloudflare-gateway.com/dns-query
 
