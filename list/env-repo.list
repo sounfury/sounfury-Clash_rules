@@ -1,0 +1,26 @@
+# Python 仓库
+DOMAIN-SUFFIX,pypi.org
+DOMAIN-SUFFIX,pythonhosted.org
+DOMAIN-SUFFIX,piwheels.org
+DOMAIN-SUFFIX,pypi.io
+
+# Maven 仓库
+DOMAIN-SUFFIX,maven.org
+DOMAIN-SUFFIX,mvnrepository.com
+DOMAIN-SUFFIX,repo1.maven.org
+DOMAIN-SUFFIX,repo.maven.apache.org
+
+# NPM 仓库
+DOMAIN-SUFFIX,npmjs.org
+DOMAIN-SUFFIX,npmjs.com
+
+# Docker 镜像仓库
+DOMAIN-SUFFIX,docker.com
+DOMAIN-SUFFIX,docker.io
+
+# Rust / Cargo 仓库
+DOMAIN-SUFFIX,crates.io
+
+# Go 模块仓库
+DOMAIN-SUFFIX,proxy.golang.org
+DOMAIN-SUFFIX,go.dev
