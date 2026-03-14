@@ -1,0 +1,17 @@
+# 默认哪些网站走低倍率
+
+# Google Drive
+DOMAIN,drive.usercontent.google.com
+
+# MEGA
+DOMAIN-SUFFIX,mega.co.nz
+
+# PornHub
+DOMAIN-SUFFIX,phncdn.com
+
+# Twitter
+DOMAIN-SUFFIX,twimg.com
+
+# TouchGal
+DOMAIN-SUFFIX,touchgaldownload.xyz
+

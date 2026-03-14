@@ -1,7 +1,8 @@
 自用
 
 
-https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/refs/heads/main/script/defult.js
+## 配置文件
+https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/refs/heads/main/config/main.ini
 
-## 简易版
-https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/refs/heads/main/script/simple.js
+## 脚本
+https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/refs/heads/main/script/defult.js

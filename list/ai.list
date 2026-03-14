@@ -1,6 +1,7 @@
 # OpenAI
 DOMAIN-SUFFIX,openai.com
 DOMAIN-SUFFIX,chatgpt.com
+DOMAIN-SUFFIX,oaiusercontent.com
 
 
 # Microsoft Copilot
@@ -18,3 +19,22 @@ DOMAIN-SUFFIX,geospy.ai
 
 # cursor
 DOMAIN-SUFFIX,cursor.sh
+
+
+# Claude
+DOMAIN-SUFFIX,claude.ai
+DOMAIN-SUFFIX,anthropic.com
+DOMAIN-SUFFIX,intercom.io
+DOMAIN-SUFFIX,intercomcdn.com
+
+# Gemini
+DOMAIN,notebooklm-pa.googleapis.com
+
+# Google AI Studio
+DOMAIN-SUFFIX,aistudio.google.com
+DOMAIN-SUFFIX,scf.usercontent.goog
+
+# antigravity
+DOMAIN-SUFFIX,open-vsx.org
+DOMAIN-SUFFIX,exp-tas.com
+PROCESS-NAME,antigravity.exe
