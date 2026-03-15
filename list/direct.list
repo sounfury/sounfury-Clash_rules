@@ -34,3 +34,16 @@ DOMAIN-SUFFIX,scdn.co
 
 DOMAIN-SUFFIX,mozilla.com
 DOMAIN-SUFFIX,ujing.online
+
+# 漏网之鱼新增
+DOMAIN,detectportal.firefox.com
+DOMAIN-SUFFIX,dell.com
+DOMAIN-SUFFIX,accounts.firefox.com
+DOMAIN,content-signature-2.cdn.mozilla.net
+DOMAIN,ocsp.sectigo.com
+DOMAIN,x1.c.lencr.org
+DOMAIN,c.pki.goog
+DOMAIN-SUFFIX,sounfury.top
+# clash公共web面板
+DOMAIN,board.zash.run.place
+DOMAIN,sdn.geekzu.org

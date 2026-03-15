@@ -1,6 +1,8 @@
 # 机场
 DOMAIN-SUFFIX,xftld.org
 DOMAIN-SUFFIX,一元机场.com
+# subconverter
+DOMAIN,api.ytools.cc
 
 # z-library
 DOMAIN-SUFFIX,z-library.se
@@ -23,3 +25,20 @@ PROCESS-NAME,gitkraken.exe
 DOMAIN-SUFFIX,linux.do
 #antigravity
 PROCESS-NAME,language_server_windows_x64.exe
+
+# 漏网之鱼新增
+DOMAIN-SUFFIX,mapify.so
+DOMAIN-SUFFIX,immersivetranslate.com
+DOMAIN,updates.zen-browser.app
+DOMAIN,x.raycast-releases.com
+DOMAIN,main.vscode-cdn.net
+DOMAIN,sdk.split.io
+DOMAIN-SUFFIX,clearurls.xyz
+DOMAIN-SUFFIX,skk.moe
+DOMAIN,wiki.metacubex.one
+DOMAIN,www.voidtools.com
+DOMAIN,www.gravatar.com
+DOMAIN-SUFFIX,mihomoparty.com
+DOMAIN-SUFFIX,clash.party
+DOMAIN-SUFFIX,dicebear.com
+DOMAIN-SUFFIX,ray.so
