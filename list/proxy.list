@@ -2,7 +2,6 @@
 DOMAIN-SUFFIX,xftld.org
 DOMAIN-SUFFIX,一元机场.com
 # subconverter
-DOMAIN,api.ytools.cc
 
 # z-library
 DOMAIN-SUFFIX,z-library.se
@@ -42,3 +41,19 @@ DOMAIN-SUFFIX,mihomoparty.com
 DOMAIN-SUFFIX,clash.party
 DOMAIN-SUFFIX,dicebear.com
 DOMAIN-SUFFIX,ray.so
+
+# 2026-03-23 漏网之鱼新增
+DOMAIN-SUFFIX,jetbrains.com
+DOMAIN-SUFFIX,termius.com
+DOMAIN-SUFFIX,split.io
+DOMAIN-SUFFIX,stripe.com
+DOMAIN-SUFFIX,stripe.network
+DOMAIN-SUFFIX,anti-ad.net
+DOMAIN-SUFFIX,anyrouter.top
+DOMAIN-SUFFIX,tampermonkey.net
+DOMAIN-SUFFIX,sanity.io
+DOMAIN-SUFFIX,featureassets.org
+DOMAIN-SUFFIX,shields.io
+DOMAIN-SUFFIX,mintcdn.com
+DOMAIN,openvsx.eclipsecontent.org
+DOMAIN,prodregistryv2.org

@@ -24,3 +24,6 @@ DOMAIN-SUFFIX,crates.io
 # Go 模块仓库
 DOMAIN-SUFFIX,proxy.golang.org
 DOMAIN-SUFFIX,go.dev
+
+# 2026-03-23 漏网之鱼新增
+DOMAIN,services.gradle.org

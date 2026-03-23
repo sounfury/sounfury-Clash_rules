@@ -47,3 +47,14 @@ DOMAIN-SUFFIX,sounfury.top
 # clash公共web面板
 DOMAIN,board.zash.run.place
 DOMAIN,sdn.geekzu.org
+
+# 2026-03-23 漏网之鱼新增
+DOMAIN,api.ytools.cc
+DOMAIN-SUFFIX,supabase.com
+DOMAIN-SUFFIX,supabase.io
+DOMAIN-SUFFIX,mozilla.org
+DOMAIN-SUFFIX,bitwarden.net
+DOMAIN,localhost
+DOMAIN-SUFFIX,usertrust.com
+DOMAIN-SUFFIX,ssl.com
+DOMAIN,ota.nvidia.com
