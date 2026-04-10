@@ -52,6 +52,7 @@ DOMAIN,sdn.geekzu.org
 DOMAIN,api.ytools.cc
 DOMAIN-SUFFIX,supabase.com
 DOMAIN-SUFFIX,supabase.io
+DOMAIN-SUFFIX,supabase.co
 DOMAIN-SUFFIX,mozilla.org
 DOMAIN-SUFFIX,bitwarden.net
 DOMAIN,localhost
