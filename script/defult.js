@@ -11,7 +11,13 @@ const groupBaseOption = {
     "max-failed-times": 3,
 };
 
-// 程序入口
+/**
+ * 根据订阅配置生成统一的 Clash 策略组、规则集和基础运行参数。
+ * 这里会顺带补齐按名称筛选的节点分组，保证不同入口生成结果尽量一致。
+ *
+ * @param {Record<string, any>} config 原始 Clash 配置对象
+ * @returns {Record<string, any>} 修改后的 Clash 配置对象
+ */
 function main(config) {
     const proxyCount = config?.proxies?.length ?? 0;
     const proxyProviderCount =
@@ -81,7 +87,7 @@ function main(config) {
             ...groupBaseOption,
             "name": "手动切换",
             "type": "select",
-            "proxies": ["冷门节点", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["小鸡节点", "冷门节点", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "include-all": true,
             "icon": "https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/applesafari.png"
         },
@@ -89,7 +95,7 @@ function main(config) {
             ...groupBaseOption,
             "name": "国外网站",
             "type": "select",
-            "proxies": ["冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["小鸡节点", "冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png"
         },
 
@@ -106,14 +112,14 @@ function main(config) {
             ...groupBaseOption,
             "name": "AI",
             "type": "select",
-            "proxies": ["冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["小鸡节点", "冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
         },
         {
             ...groupBaseOption,
             "name": "游戏平台",
             "type": "select",
-            "proxies": ["冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
+            "proxies": ["小鸡节点", "冷门节点", "手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png"
         },
         {
@@ -130,6 +136,15 @@ function main(config) {
             "type": "select",
             "proxies": ["美国节点", "冷门节点", "手动切换", "香港节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
             "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png"
+        },
+        {
+            ...groupBaseOption,
+            "name": "小鸡节点",
+            "type": "url-test",
+            "tolerance": 0,
+            "include-all": true,
+            "filter": "(?i)chicken|vps|server|小鸡|鸡",
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png"
         },
         {
             ...groupBaseOption,
