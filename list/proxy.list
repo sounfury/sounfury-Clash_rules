@@ -69,3 +69,6 @@ DOMAIN-SUFFIX,imdb.com
 DOMAIN-KEYWORD,linuxdo
 
 DOMAIN-SUFFIX,azure.com
+
+# 2026-04-22 漏网之鱼新增
+DOMAIN-KEYWORD,stash
