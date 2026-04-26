@@ -1,0 +1,4 @@
+# E站里站单独分流，避免继续落到通用成人组后默认选中亚洲出口。
+DOMAIN-SUFFIX,e-hentai.org
+DOMAIN-SUFFIX,exhentai.org
+DOMAIN-SUFFIX,ehgt.org
