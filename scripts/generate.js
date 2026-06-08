@@ -418,9 +418,15 @@ function genStoverride() {
         { lineWidth: 200, noCompatMode: true }
     ).replace(/^(rules):/, '$1: #!replace');
 
-    const header = `name: sounfury 主规则覆写
-desc: 由 generate.js 从 source.yaml 自动生成，勿手动编辑。
+    // 从 source.yaml meta.stash 读取覆写元数据，保持 SSoT
+    const stashMeta = src.meta.stash || {};
+    const stashName = stashMeta.name || 'sounfury 主规则覆写';
+    const stashDesc = stashMeta.desc || '由 generate.js 从 source.yaml 自动生成，勿手动编辑。';
+    const stashIcon = stashMeta.icon ? `icon: ${stashMeta.icon}\n` : '';
 
+    const header = `name: ${stashName}
+desc: ${stashDesc}
+${stashIcon}
 # Stash 覆写默认会把数组插入到原数组前面；
 # 这里使用 #!replace 完整替换，模拟 subconverter 的 overwrite_original_rules=true。
 

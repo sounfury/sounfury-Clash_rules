@@ -1,5 +1,6 @@
 name: sounfury 主规则覆写
 desc: 由 generate.js 从 source.yaml 自动生成，勿手动编辑。
+icon: https://sounfury-image.oss-cn-beijing.aliyuncs.com/icon.jpg
 
 # Stash 覆写默认会把数组插入到原数组前面；
 # 这里使用 #!replace 完整替换，模拟 subconverter 的 overwrite_original_rules=true。

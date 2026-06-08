@@ -8,6 +8,12 @@ meta:
   # $self 宏：转换器将其替换为下方的 raw_base
   raw_base: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main
 
+  # Stash 覆写元数据
+  stash:
+    name: sounfury 主规则覆写
+    desc: 由 generate.js 从 source.yaml 自动生成，勿手动编辑。
+    icon: https://sounfury-image.oss-cn-beijing.aliyuncs.com/icon.jpg
+
 # ─── 通用运行参数（JS/stoverride 覆写使用；INI 不需要此段） ─────
 general:
   mixed-port: 7890
