@@ -1,0 +1,465 @@
+# ============================================================
+# source.yaml — 唯一数据源（SSoT）
+# 所有改动只在此文件进行，output/ 目录由 generate.js 自动生成。
+# ============================================================
+
+# ─── 仓库元信息 ───────────────────────────────────────────────
+meta:
+  # $self 宏：转换器将其替换为下方的 raw_base
+  raw_base: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main
+
+# ─── 通用运行参数（JS/stoverride 覆写使用；INI 不需要此段） ─────
+general:
+  mixed-port: 7890
+  tcp-concurrent: true
+  allow-lan: true
+  ipv6: false
+  log-level: info
+  unified-delay: true
+  find-process-mode: strict
+  global-client-fingerprint: chrome
+
+# ─── 节点过滤正则（subconverter exclude_remarks） ─────────────
+exclude_remarks: '(?i)(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)'
+
+# ─── DNS（原 GeneralClashConfig.yml 全量合入） ─────────────────
+dns:
+  enable: true
+  ipv6: true
+  use-hosts: true
+  prefer-h3: true
+  listen: 0.0.0.0:53
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - "*"
+    - +.lan
+    - +.local
+    - time.*.com
+    - ntp.*.com
+    - +.market.xiaomi.com
+  # 仅用于解析 DNS 上游自身域名
+  default-nameserver:
+    - https://223.5.5.5/dns-query
+  # 普通域名默认解析
+  nameserver:
+    - https://dns.alidns.com/dns-query
+  # 代理节点 server 域名单独解析
+  proxy-server-nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  # fallback 上游
+  fallback:
+    - https://dns.cloudflare.com/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite:
+      - gfw
+    ipcidr:
+      - 240.0.0.0/4
+  nameserver-policy:
+    "geosite:cn,private,apple": https://dns.alidns.com/dns-query
+    "geosite:!cn,gfw": https://posvdm.cloudflare-gateway.com/dns-query
+
+hosts:
+  iosapps.itunes.apple.com: hls.itunes.apple.com.mwcname.com
+
+# ─── Sniffer（JS/stoverride 使用） ───────────────────────────
+sniffer:
+  enable: true
+  parse-pure-ip: true
+  sniff:
+    TLS:
+      ports: ["443", "8443"]
+    HTTP:
+      ports: ["80", "8080-8880"]
+      override-destination: true
+    QUIC:
+      ports: ["443", "8443"]
+
+# ─── TUN（JS/stoverride 使用） ───────────────────────────────
+tun:
+  enable: true
+  stack: mixed
+  dns-hijack:
+    - any:53
+
+# ─── 规则集 ──────────────────────────────────────────────────
+# 每条规则的字段说明：
+#   url      : 规则源地址，$self 会被替换为 meta.raw_base
+#   behavior : domain / ipcidr / classical（默认 classical）
+#   format   : yaml / text（默认 text）
+#   interval : 更新间隔秒数（默认 86400）
+#   ini_prefix: subconverter INI 特殊前缀（如 clash-domain:）
+rulesets:
+  # 广告隐私
+  - group: 🛑 广告隐私
+    rules:
+      - url: https://anti-ad.net/clash.yaml
+        behavior: domain
+        format: yaml
+        interval: 86400
+        ini_prefix: "clash-domain:"
+      - url: https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockclashlite.list
+      - url: https://raw.githubusercontent.com/PosvdM/Clash-rules/main/list/reject.list
+
+  # 全球直连
+  - group: 🎯 全球直连
+    rules:
+      - url: $self/list/direct.list
+      - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list
+      - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list
+      - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list
+      - url: https://ruleset.skk.moe/Clash/non_ip/apple_cdn.txt
+      - url: https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt
+      - url: https://ruleset.skk.moe/Clash/non_ip/apple_services.txt
+      - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list
+      - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Microsoft.list
+
+  # AI
+  - group: 🤖 AI
+    rules:
+      - url: $self/list/ai.list
+      - url: https://ruleset.skk.moe/Clash/non_ip/ai.txt
+
+  # 大宗流量
+  - group: 📦 大宗流量
+    rules:
+      - url: $self/list/low.list
+
+  # 开发环境仓库
+  - group: 💻 环境仓库
+    rules:
+      - url: $self/list/env-repo.list
+
+  # 游戏服务
+  - group: 🎮 游戏服务
+    rules:
+      - url: https://raw.githubusercontent.com/LoveMyself666/ACL4SSR/master/Clash/GamePlatform.list
+
+  # Emby
+  - group: 📺 Emby
+    rules:
+      - url: $self/list/Emby.list
+
+  # Spotify
+  - group: 🎶 Spotify
+    rules:
+      - url: $self/list/Spotify.list
+
+  # E站
+  - group: 📚 E站
+    rules:
+      - url: $self/list/ehentai.list
+
+  # 成人内容
+  - group: 🥵 不许涩涩
+    rules:
+      - url: $self/list/sexy.list
+
+  # Telegram
+  - group: 📨 Telegram
+    rules:
+      - url: https://ruleset.skk.moe/Clash/non_ip/telegram.txt
+      - url: https://ruleset.skk.moe/Clash/ip/telegram.txt
+
+  # 国外网站
+  - group: 🚀 国外网站
+    rules:
+      - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleFCM.list
+      - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Netflix.list
+      - url: https://raw.githubusercontent.com/LM-Firefly/Rules/master/Global-Services/Netflix.list
+      - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/DisneyPlus.list
+      - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Bahamut.list
+      - url: $self/list/proxy.list
+      - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyLite.list
+
+# ─── 尾部规则（GEOSITE / GEOIP / MATCH） ────────────────────
+tail_rules:
+  - { literal: "GEOSITE,cn",      group: "🎯 全球直连" }
+  - { literal: "GEOIP,CN",        group: "🎯 全球直连" }
+  - { literal: "MATCH",           group: "🐟 漏网之鱼" }
+
+# ─── 策略组 ──────────────────────────────────────────────────
+# include-all / filter / icon 仅在 JS / stoverride 产物中保留；
+# INI 产物只输出 name / type / proxies / url / interval / tolerance。
+proxy_groups:
+  # ── 业务组 ────────────────────────────────────────────────
+
+  - name: 👋 手动切换
+    type: select
+    proxies:
+      - ⚡ 自动选择
+      - 🇭🇰 香港节点
+      - 🇺🇲 美国节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇹🇼 台湾节点
+      - 🇪🇺 欧洲节点
+      - 🇹🇷 土耳其节点
+      - 🐔 小鸡节点
+      - 🏷️ 低倍率
+      - 🧊 冷门节点
+      - DIRECT
+    include-all: true
+    icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/applesafari.png
+
+  - name: 🚀 国外网站
+    type: select
+    proxies:
+      - ⚡ 自动选择
+      - 👋 手动切换
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
+
+  - name: 📨 Telegram
+    type: select
+    proxies:
+      - ⚡ 自动选择
+      - 🏷️ 低倍率
+      - 🇭🇰 香港节点
+      - 🇺🇲 美国节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇹🇼 台湾节点
+      - 🧊 冷门节点
+      - 👋 手动切换
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png
+
+  - name: 🤖 AI
+    type: select
+    proxies:
+      - 🇸🇬 狮城节点
+      - 🐔 小鸡节点
+      - 🏷️ 低倍率
+      - 🇭🇰 香港节点
+      - 🇺🇲 美国节点
+      - 🇯🇵 日本节点
+      - 🇹🇼 台湾节点
+      - 🧊 冷门节点
+      - 👋 手动切换
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png
+
+  - name: 🎮 游戏服务
+    type: select
+    proxies:
+      - 🇸🇬 狮城节点
+      - 🐔 小鸡节点
+      - 🏷️ 低倍率
+      - 🇭🇰 香港节点
+      - 🇺🇲 美国节点
+      - 🇯🇵 日本节点
+      - 🇹🇼 台湾节点
+      - 🧊 冷门节点
+      - 👋 手动切换
+      - DIRECT
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png
+
+  - name: 📺 Emby
+    type: select
+    proxies:
+      - 🏷️ 低倍率
+      - 🇭🇰 香港节点
+      - 🇺🇲 美国节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇹🇼 台湾节点
+      - 🧊 冷门节点
+      - 👋 手动切换
+      - DIRECT
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Emby.png
+
+  - name: 🎶 Spotify
+    type: select
+    proxies:
+      - 🇹🇷 土耳其节点
+      - 🏷️ 低倍率
+      - 🇺🇲 美国节点
+      - 🇭🇰 香港节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇹🇼 台湾节点
+      - 🧊 冷门节点
+      - 👋 手动切换
+      - DIRECT
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png
+
+  - name: 📚 E站
+    type: select
+    proxies:
+      - 🇪🇺 欧洲节点
+      - 🇺🇲 美国节点
+      - 👋 手动切换
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/NSFW.png
+
+  - name: 🥵 不许涩涩
+    type: select
+    proxies:
+      - 🇸🇬 狮城节点
+      - 🏷️ 低倍率
+      - 🇭🇰 香港节点
+      - 🇺🇲 美国节点
+      - 🇯🇵 日本节点
+      - 🇹🇼 台湾节点
+      - 🧊 冷门节点
+      - 👋 手动切换
+      - DIRECT
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Reject.png
+
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:
+      - 🇸🇬 狮城节点
+      - 🏷️ 低倍率
+      - 🇭🇰 香港节点
+      - 🇺🇲 美国节点
+      - 🇯🇵 日本节点
+      - 🇹🇼 台湾节点
+      - 🧊 冷门节点
+      - 👋 手动切换
+      - DIRECT
+    icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg
+
+  - name: 📦 大宗流量
+    type: select
+    proxies:
+      - 🏷️ 低倍率
+      - 🇸🇬 狮城节点
+      - 🇭🇰 香港节点
+      - 🇺🇲 美国节点
+      - 🇯🇵 日本节点
+      - 🇹🇼 台湾节点
+      - 🧊 冷门节点
+      - 👋 手动切换
+      - DIRECT
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png
+
+  - name: 💻 环境仓库
+    type: select
+    proxies:
+      - 🏷️ 低倍率
+      - 🐔 小鸡节点
+      - 🇸🇬 狮城节点
+      - 🇭🇰 香港节点
+      - 🇺🇲 美国节点
+      - 🇯🇵 日本节点
+      - 🇹🇼 台湾节点
+      - 🧊 冷门节点
+      - 👋 手动切换
+      - DIRECT
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Developer.png
+
+  # ── 自动测速组 ────────────────────────────────────────────
+
+  - name: ⚡ 自动选择
+    type: url-test
+    include-all: true
+    filter: '(?i)^(?=.*(🇭🇰|香港|HK|Hong\s*Kong|🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞|🇸🇬|新加坡|狮城|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan))(?!.*(实验|低倍率|小鸡|chicken|vps|剩余|Expire|Traffic|GB|官网|网址|官址|套餐|应急|失联|重置|到期|过期|订阅)).*'
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 5
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
+
+  # 低倍率节点命名不统一，兼容"实验/低倍/0.x/折扣"等常见写法
+  - name: 🏷️ 低倍率
+    type: url-test
+    include-all: true
+    filter: '(?i)(实验|低倍率|低倍|0\.[1-9]\s*(?:x|倍)?|[1-5]折)'
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 5
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cheap.png
+
+  - name: 🐔 小鸡节点
+    type: url-test
+    include-all: true
+    filter: '(?i)chicken|vps|server|小鸡|鸡'
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 5
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png
+
+  # ── 地区组 ───────────────────────────────────────────────
+
+  - name: 🇭🇰 香港节点
+    type: url-test
+    include-all: true
+    filter: '(?i)🇭🇰|香港|HK|Hong\s*Kong'
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 5
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
+
+  - name: 🇺🇲 美国节点
+    type: url-test
+    include-all: true
+    filter: '(?i)🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞'
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 5
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
+
+  - name: 🇸🇬 狮城节点
+    type: url-test
+    include-all: true
+    filter: '(?i)🇸🇬|新加坡|狮城|SG|Singapore'
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 5
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
+
+  - name: 🇪🇺 欧洲节点
+    type: url-test
+    include-all: true
+    filter: '(?i)🇪🇺|欧洲|Europe|🇩🇪|德国|Germany|Frankfurt|法兰克福|Berlin|柏林|🇳🇱|荷兰|Netherlands|Amsterdam|阿姆斯特丹|🇬🇧|英国|United.?Kingdom|London|伦敦|🇫🇷|法国|France|Paris|巴黎|🇮🇪|爱尔兰|Ireland|Dublin|都柏林'
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 5
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/European_Union.png
+
+  - name: 🇹🇷 土耳其节点
+    type: url-test
+    include-all: true
+    filter: '(?i)🇹🇷|土耳其|TR|Turkey|Turkiye|Türkiye|Istanbul'
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 5
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Turkey.png
+
+  - name: 🇯🇵 日本节点
+    type: url-test
+    include-all: true
+    filter: '(?i)🇯🇵|日本|东京|JP|Japan'
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 5
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
+
+  - name: 🇹🇼 台湾节点
+    type: url-test
+    include-all: true
+    filter: '(?i)🇹🇼|台湾|TW|Taiwan|Tai'
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 5
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png
+
+  # 负向筛选常见地区和订阅信息节点，保留主流地区以外的可选出口
+  - name: 🧊 冷门节点
+    type: select
+    include-all: true
+    filter: '^(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|🇺🇲|美国|洛杉矶|圣何塞|US|United.?States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan|剩余|Expire|Traffic|GB)).*'
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png
+
+  # ── 特殊组 ───────────────────────────────────────────────
+
+  - name: 🛑 广告隐私
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  - name: 🎯 全球直连
+    type: select
+    proxies:
+      - DIRECT

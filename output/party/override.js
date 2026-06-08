@@ -1,0 +1,723 @@
+/**
+ * override.js — mihomo-party 覆写脚本（自动生成，勿手动编辑）
+ * 数据源：source.yaml
+ */
+
+// 策略组通用配置
+const groupBase = {
+    interval: 300,
+    url: 'http://1.1.1.1/generate_204',
+    'max-failed-times': 3,
+};
+
+/**
+ * @param {Record<string, any>} config 原始 Clash 配置对象
+ * @returns {Record<string, any>} 修改后的 Clash 配置对象
+ */
+function main(config) {
+    const proxyCount = config?.proxies?.length ?? 0;
+    const providerCount =
+        typeof config?.['proxy-providers'] === 'object'
+            ? Object.keys(config['proxy-providers']).length
+            : 0;
+    if (proxyCount === 0 && providerCount === 0) {
+        throw new Error('配置文件中未找到任何代理');
+    }
+
+    // 覆盖通用参数
+    config["mixed-port"] = 7890;
+    config["tcp-concurrent"] = true;
+    config["allow-lan"] = true;
+    config["ipv6"] = false;
+    config["log-level"] = "info";
+    config["unified-delay"] = true;
+    config["find-process-mode"] = "strict";
+    config["global-client-fingerprint"] = "chrome";
+
+    // 覆盖 DNS
+    config['dns'] = {
+        "enable": true,
+        "ipv6": true,
+        "use-hosts": true,
+        "prefer-h3": true,
+        "listen": "0.0.0.0:53",
+        "enhanced-mode": "fake-ip",
+        "fake-ip-range": "198.18.0.1/16",
+        "fake-ip-filter": [
+            "*",
+            "+.lan",
+            "+.local",
+            "time.*.com",
+            "ntp.*.com",
+            "+.market.xiaomi.com"
+        ],
+        "default-nameserver": [
+            "https://223.5.5.5/dns-query"
+        ],
+        "nameserver": [
+            "https://dns.alidns.com/dns-query"
+        ],
+        "proxy-server-nameserver": [
+            "https://dns.alidns.com/dns-query",
+            "https://doh.pub/dns-query"
+        ],
+        "fallback": [
+            "https://dns.cloudflare.com/dns-query"
+        ],
+        "fallback-filter": {
+            "geoip": true,
+            "geoip-code": "CN",
+            "geosite": [
+                "gfw"
+            ],
+            "ipcidr": [
+                "240.0.0.0/4"
+            ]
+        },
+        "nameserver-policy": {
+            "geosite:cn,private,apple": "https://dns.alidns.com/dns-query",
+            "geosite:!cn,gfw": "https://posvdm.cloudflare-gateway.com/dns-query"
+        }
+    };
+
+    // 覆盖 sniffer
+    config['sniffer'] = {
+        "enable": true,
+        "parse-pure-ip": true,
+        "sniff": {
+            "TLS": {
+                "ports": [
+                    "443",
+                    "8443"
+                ]
+            },
+            "HTTP": {
+                "ports": [
+                    "80",
+                    "8080-8880"
+                ],
+                "override-destination": true
+            },
+            "QUIC": {
+                "ports": [
+                    "443",
+                    "8443"
+                ]
+            }
+        }
+    };
+
+    // 覆盖 tun
+    config['tun'] = {
+        "enable": true,
+        "stack": "mixed",
+        "dns-hijack": [
+            "any:53"
+        ]
+    };
+
+    // 覆盖策略组
+    config['proxy-groups'] = [
+        {
+            "name": "👋 手动切换",
+            "type": "select",
+            "proxies": [
+                "⚡ 自动选择",
+                "🇭🇰 香港节点",
+                "🇺🇲 美国节点",
+                "🇸🇬 狮城节点",
+                "🇯🇵 日本节点",
+                "🇹🇼 台湾节点",
+                "🇪🇺 欧洲节点",
+                "🇹🇷 土耳其节点",
+                "🐔 小鸡节点",
+                "🏷️ 低倍率",
+                "🧊 冷门节点",
+                "DIRECT"
+            ],
+            "include-all": true,
+            "icon": "https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/applesafari.png"
+        },
+        {
+            "name": "🚀 国外网站",
+            "type": "select",
+            "proxies": [
+                "⚡ 自动选择",
+                "👋 手动切换"
+            ],
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png"
+        },
+        {
+            "name": "📨 Telegram",
+            "type": "select",
+            "proxies": [
+                "⚡ 自动选择",
+                "🏷️ 低倍率",
+                "🇭🇰 香港节点",
+                "🇺🇲 美国节点",
+                "🇸🇬 狮城节点",
+                "🇯🇵 日本节点",
+                "🇹🇼 台湾节点",
+                "🧊 冷门节点",
+                "👋 手动切换"
+            ],
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png"
+        },
+        {
+            "name": "🤖 AI",
+            "type": "select",
+            "proxies": [
+                "🇸🇬 狮城节点",
+                "🐔 小鸡节点",
+                "🏷️ 低倍率",
+                "🇭🇰 香港节点",
+                "🇺🇲 美国节点",
+                "🇯🇵 日本节点",
+                "🇹🇼 台湾节点",
+                "🧊 冷门节点",
+                "👋 手动切换"
+            ],
+            "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
+        },
+        {
+            "name": "🎮 游戏服务",
+            "type": "select",
+            "proxies": [
+                "🇸🇬 狮城节点",
+                "🐔 小鸡节点",
+                "🏷️ 低倍率",
+                "🇭🇰 香港节点",
+                "🇺🇲 美国节点",
+                "🇯🇵 日本节点",
+                "🇹🇼 台湾节点",
+                "🧊 冷门节点",
+                "👋 手动切换",
+                "DIRECT"
+            ],
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png"
+        },
+        {
+            "name": "📺 Emby",
+            "type": "select",
+            "proxies": [
+                "🏷️ 低倍率",
+                "🇭🇰 香港节点",
+                "🇺🇲 美国节点",
+                "🇸🇬 狮城节点",
+                "🇯🇵 日本节点",
+                "🇹🇼 台湾节点",
+                "🧊 冷门节点",
+                "👋 手动切换",
+                "DIRECT"
+            ],
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Emby.png"
+        },
+        {
+            "name": "🎶 Spotify",
+            "type": "select",
+            "proxies": [
+                "🇹🇷 土耳其节点",
+                "🏷️ 低倍率",
+                "🇺🇲 美国节点",
+                "🇭🇰 香港节点",
+                "🇸🇬 狮城节点",
+                "🇯🇵 日本节点",
+                "🇹🇼 台湾节点",
+                "🧊 冷门节点",
+                "👋 手动切换",
+                "DIRECT"
+            ],
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png"
+        },
+        {
+            "name": "📚 E站",
+            "type": "select",
+            "proxies": [
+                "🇪🇺 欧洲节点",
+                "🇺🇲 美国节点",
+                "👋 手动切换"
+            ],
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/NSFW.png"
+        },
+        {
+            "name": "🥵 不许涩涩",
+            "type": "select",
+            "proxies": [
+                "🇸🇬 狮城节点",
+                "🏷️ 低倍率",
+                "🇭🇰 香港节点",
+                "🇺🇲 美国节点",
+                "🇯🇵 日本节点",
+                "🇹🇼 台湾节点",
+                "🧊 冷门节点",
+                "👋 手动切换",
+                "DIRECT"
+            ],
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Reject.png"
+        },
+        {
+            "name": "🐟 漏网之鱼",
+            "type": "select",
+            "proxies": [
+                "🇸🇬 狮城节点",
+                "🏷️ 低倍率",
+                "🇭🇰 香港节点",
+                "🇺🇲 美国节点",
+                "🇯🇵 日本节点",
+                "🇹🇼 台湾节点",
+                "🧊 冷门节点",
+                "👋 手动切换",
+                "DIRECT"
+            ],
+            "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg"
+        },
+        {
+            "name": "📦 大宗流量",
+            "type": "select",
+            "proxies": [
+                "🏷️ 低倍率",
+                "🇸🇬 狮城节点",
+                "🇭🇰 香港节点",
+                "🇺🇲 美国节点",
+                "🇯🇵 日本节点",
+                "🇹🇼 台湾节点",
+                "🧊 冷门节点",
+                "👋 手动切换",
+                "DIRECT"
+            ],
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png"
+        },
+        {
+            "name": "💻 环境仓库",
+            "type": "select",
+            "proxies": [
+                "🏷️ 低倍率",
+                "🐔 小鸡节点",
+                "🇸🇬 狮城节点",
+                "🇭🇰 香港节点",
+                "🇺🇲 美国节点",
+                "🇯🇵 日本节点",
+                "🇹🇼 台湾节点",
+                "🧊 冷门节点",
+                "👋 手动切换",
+                "DIRECT"
+            ],
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Developer.png"
+        },
+        {
+            "interval": 300,
+            "url": "http://www.gstatic.com/generate_204",
+            "max-failed-times": 3,
+            "name": "⚡ 自动选择",
+            "type": "url-test",
+            "include-all": true,
+            "filter": "(?i)^(?=.*(🇭🇰|香港|HK|Hong\\s*Kong|🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞|🇸🇬|新加坡|狮城|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan))(?!.*(实验|低倍率|小鸡|chicken|vps|剩余|Expire|Traffic|GB|官网|网址|官址|套餐|应急|失联|重置|到期|过期|订阅)).*",
+            "tolerance": 5,
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png"
+        },
+        {
+            "interval": 300,
+            "url": "https://www.gstatic.com/generate_204",
+            "max-failed-times": 3,
+            "name": "🏷️ 低倍率",
+            "type": "url-test",
+            "include-all": true,
+            "filter": "(?i)(实验|低倍率|低倍|0\\.[1-9]\\s*(?:x|倍)?|[1-5]折)",
+            "tolerance": 5,
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cheap.png"
+        },
+        {
+            "interval": 300,
+            "url": "http://www.gstatic.com/generate_204",
+            "max-failed-times": 3,
+            "name": "🐔 小鸡节点",
+            "type": "url-test",
+            "include-all": true,
+            "filter": "(?i)chicken|vps|server|小鸡|鸡",
+            "tolerance": 5,
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png"
+        },
+        {
+            "interval": 300,
+            "url": "http://www.gstatic.com/generate_204",
+            "max-failed-times": 3,
+            "name": "🇭🇰 香港节点",
+            "type": "url-test",
+            "include-all": true,
+            "filter": "(?i)🇭🇰|香港|HK|Hong\\s*Kong",
+            "tolerance": 5,
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png"
+        },
+        {
+            "interval": 300,
+            "url": "http://www.gstatic.com/generate_204",
+            "max-failed-times": 3,
+            "name": "🇺🇲 美国节点",
+            "type": "url-test",
+            "include-all": true,
+            "filter": "(?i)🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞",
+            "tolerance": 5,
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png"
+        },
+        {
+            "interval": 300,
+            "url": "http://www.gstatic.com/generate_204",
+            "max-failed-times": 3,
+            "name": "🇸🇬 狮城节点",
+            "type": "url-test",
+            "include-all": true,
+            "filter": "(?i)🇸🇬|新加坡|狮城|SG|Singapore",
+            "tolerance": 5,
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"
+        },
+        {
+            "interval": 300,
+            "url": "http://www.gstatic.com/generate_204",
+            "max-failed-times": 3,
+            "name": "🇪🇺 欧洲节点",
+            "type": "url-test",
+            "include-all": true,
+            "filter": "(?i)🇪🇺|欧洲|Europe|🇩🇪|德国|Germany|Frankfurt|法兰克福|Berlin|柏林|🇳🇱|荷兰|Netherlands|Amsterdam|阿姆斯特丹|🇬🇧|英国|United.?Kingdom|London|伦敦|🇫🇷|法国|France|Paris|巴黎|🇮🇪|爱尔兰|Ireland|Dublin|都柏林",
+            "tolerance": 5,
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/European_Union.png"
+        },
+        {
+            "interval": 300,
+            "url": "http://www.gstatic.com/generate_204",
+            "max-failed-times": 3,
+            "name": "🇹🇷 土耳其节点",
+            "type": "url-test",
+            "include-all": true,
+            "filter": "(?i)🇹🇷|土耳其|TR|Turkey|Turkiye|Türkiye|Istanbul",
+            "tolerance": 5,
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Turkey.png"
+        },
+        {
+            "interval": 300,
+            "url": "http://www.gstatic.com/generate_204",
+            "max-failed-times": 3,
+            "name": "🇯🇵 日本节点",
+            "type": "url-test",
+            "include-all": true,
+            "filter": "(?i)🇯🇵|日本|东京|JP|Japan",
+            "tolerance": 5,
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png"
+        },
+        {
+            "interval": 300,
+            "url": "http://www.gstatic.com/generate_204",
+            "max-failed-times": 3,
+            "name": "🇹🇼 台湾节点",
+            "type": "url-test",
+            "include-all": true,
+            "filter": "(?i)🇹🇼|台湾|TW|Taiwan|Tai",
+            "tolerance": 5,
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png"
+        },
+        {
+            "name": "🧊 冷门节点",
+            "type": "select",
+            "include-all": true,
+            "filter": "^(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|🇺🇲|美国|洛杉矶|圣何塞|US|United.?States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan|剩余|Expire|Traffic|GB)).*",
+            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png"
+        },
+        {
+            "name": "🛑 广告隐私",
+            "type": "select",
+            "proxies": [
+                "REJECT",
+                "DIRECT"
+            ]
+        },
+        {
+            "name": "🎯 全球直连",
+            "type": "select",
+            "proxies": [
+                "DIRECT"
+            ]
+        }
+    ];
+
+    // 覆盖规则集
+    config['rule-providers'] = {
+        "ad_clash": {
+            "type": "http",
+            "behavior": "domain",
+            "format": "yaml",
+            "url": "https://anti-ad.net/clash.yaml",
+            "path": "./ruleset/sounfury/ad_clash.yaml",
+            "interval": 86400
+        },
+        "ad_adblockclashlite": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockclashlite.list",
+            "path": "./ruleset/sounfury/ad_adblockclashlite.list",
+            "interval": 86400
+        },
+        "ad_reject": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/PosvdM/Clash-rules/main/list/reject.list",
+            "path": "./ruleset/sounfury/ad_reject.list",
+            "interval": 86400
+        },
+        "direct_direct": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/direct.list",
+            "path": "./ruleset/sounfury/direct_direct.list",
+            "interval": 86400
+        },
+        "direct_ChinaDomain": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list",
+            "path": "./ruleset/sounfury/direct_ChinaDomain.list",
+            "interval": 86400
+        },
+        "direct_ChinaCompanyIp": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list",
+            "path": "./ruleset/sounfury/direct_ChinaCompanyIp.list",
+            "interval": 86400
+        },
+        "direct_Download": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list",
+            "path": "./ruleset/sounfury/direct_Download.list",
+            "interval": 86400
+        },
+        "direct_apple_cdn": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://ruleset.skk.moe/Clash/non_ip/apple_cdn.txt",
+            "path": "./ruleset/sounfury/direct_apple_cdn.list",
+            "interval": 86400
+        },
+        "direct_apple_cn": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt",
+            "path": "./ruleset/sounfury/direct_apple_cn.list",
+            "interval": 86400
+        },
+        "direct_apple_services": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://ruleset.skk.moe/Clash/non_ip/apple_services.txt",
+            "path": "./ruleset/sounfury/direct_apple_services.list",
+            "interval": 86400
+        },
+        "direct_UnBan": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list",
+            "path": "./ruleset/sounfury/direct_UnBan.list",
+            "interval": 86400
+        },
+        "direct_Microsoft": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Microsoft.list",
+            "path": "./ruleset/sounfury/direct_Microsoft.list",
+            "interval": 86400
+        },
+        "ai_ai": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/ai.list",
+            "path": "./ruleset/sounfury/ai_ai.list",
+            "interval": 86400
+        },
+        "ai_ai_1": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://ruleset.skk.moe/Clash/non_ip/ai.txt",
+            "path": "./ruleset/sounfury/ai_ai_1.list",
+            "interval": 86400
+        },
+        "low_low": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/low.list",
+            "path": "./ruleset/sounfury/low_low.list",
+            "interval": 86400
+        },
+        "env_env_repo": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/env-repo.list",
+            "path": "./ruleset/sounfury/env_env_repo.list",
+            "interval": 86400
+        },
+        "game_GamePlatform": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/LoveMyself666/ACL4SSR/master/Clash/GamePlatform.list",
+            "path": "./ruleset/sounfury/game_GamePlatform.list",
+            "interval": 86400
+        },
+        "emby_Emby": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/Emby.list",
+            "path": "./ruleset/sounfury/emby_Emby.list",
+            "interval": 86400
+        },
+        "spotify_Spotify": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/Spotify.list",
+            "path": "./ruleset/sounfury/spotify_Spotify.list",
+            "interval": 86400
+        },
+        "ehentai_ehentai": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/ehentai.list",
+            "path": "./ruleset/sounfury/ehentai_ehentai.list",
+            "interval": 86400
+        },
+        "sexy_sexy": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/sexy.list",
+            "path": "./ruleset/sounfury/sexy_sexy.list",
+            "interval": 86400
+        },
+        "tg_telegram": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://ruleset.skk.moe/Clash/non_ip/telegram.txt",
+            "path": "./ruleset/sounfury/tg_telegram.list",
+            "interval": 86400
+        },
+        "tg_telegram_1": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://ruleset.skk.moe/Clash/ip/telegram.txt",
+            "path": "./ruleset/sounfury/tg_telegram_1.list",
+            "interval": 86400
+        },
+        "proxy_GoogleFCM": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleFCM.list",
+            "path": "./ruleset/sounfury/proxy_GoogleFCM.list",
+            "interval": 86400
+        },
+        "proxy_Netflix": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Netflix.list",
+            "path": "./ruleset/sounfury/proxy_Netflix.list",
+            "interval": 86400
+        },
+        "proxy_Netflix_1": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/LM-Firefly/Rules/master/Global-Services/Netflix.list",
+            "path": "./ruleset/sounfury/proxy_Netflix_1.list",
+            "interval": 86400
+        },
+        "proxy_DisneyPlus": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/DisneyPlus.list",
+            "path": "./ruleset/sounfury/proxy_DisneyPlus.list",
+            "interval": 86400
+        },
+        "proxy_Bahamut": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Bahamut.list",
+            "path": "./ruleset/sounfury/proxy_Bahamut.list",
+            "interval": 86400
+        },
+        "proxy_proxy": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/proxy.list",
+            "path": "./ruleset/sounfury/proxy_proxy.list",
+            "interval": 86400
+        },
+        "proxy_ProxyLite": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyLite.list",
+            "path": "./ruleset/sounfury/proxy_ProxyLite.list",
+            "interval": 86400
+        }
+    };
+
+    // 覆盖规则
+    config['rules'] = [
+        "RULE-SET,ad_clash,🛑 广告隐私",
+        "RULE-SET,ad_adblockclashlite,🛑 广告隐私",
+        "RULE-SET,ad_reject,🛑 广告隐私",
+        "RULE-SET,direct_direct,🎯 全球直连",
+        "RULE-SET,direct_ChinaDomain,🎯 全球直连",
+        "RULE-SET,direct_ChinaCompanyIp,🎯 全球直连",
+        "RULE-SET,direct_Download,🎯 全球直连",
+        "RULE-SET,direct_apple_cdn,🎯 全球直连",
+        "RULE-SET,direct_apple_cn,🎯 全球直连",
+        "RULE-SET,direct_apple_services,🎯 全球直连",
+        "RULE-SET,direct_UnBan,🎯 全球直连",
+        "RULE-SET,direct_Microsoft,🎯 全球直连",
+        "RULE-SET,ai_ai,🤖 AI",
+        "RULE-SET,ai_ai_1,🤖 AI",
+        "RULE-SET,low_low,📦 大宗流量",
+        "RULE-SET,env_env_repo,💻 环境仓库",
+        "RULE-SET,game_GamePlatform,🎮 游戏服务",
+        "RULE-SET,emby_Emby,📺 Emby",
+        "RULE-SET,spotify_Spotify,🎶 Spotify",
+        "RULE-SET,ehentai_ehentai,📚 E站",
+        "RULE-SET,sexy_sexy,🥵 不许涩涩",
+        "RULE-SET,tg_telegram,📨 Telegram",
+        "RULE-SET,tg_telegram_1,📨 Telegram",
+        "RULE-SET,proxy_GoogleFCM,🚀 国外网站",
+        "RULE-SET,proxy_Netflix,🚀 国外网站",
+        "RULE-SET,proxy_Netflix_1,🚀 国外网站",
+        "RULE-SET,proxy_DisneyPlus,🚀 国外网站",
+        "RULE-SET,proxy_Bahamut,🚀 国外网站",
+        "RULE-SET,proxy_proxy,🚀 国外网站",
+        "RULE-SET,proxy_ProxyLite,🚀 国外网站",
+        "GEOSITE,cn,🎯 全球直连",
+        "GEOIP,CN,🎯 全球直连,no-resolve",
+        "MATCH,🐟 漏网之鱼"
+    ];
+
+    return config;
+}

@@ -1,0 +1,43 @@
+name: 生成多客户端配置
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'source.yaml'
+      - 'list/**'
+
+  # 允许手动触发
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 安装依赖
+        run: npm install
+        working-directory: scripts
+
+      - name: 运行转换器
+        run: node scripts/generate.js
+
+      - name: 提交产物
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add output/
+          # 无变化时静默退出
+          git diff --cached --quiet && echo "无变化，跳过提交" || git commit -m "chore: auto-generate outputs [skip ci]"
+          git push

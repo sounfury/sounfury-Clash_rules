@@ -1,0 +1,13 @@
+{
+  "name": "sounfury-clash-generator",
+  "version": "1.0.0",
+  "description": "从 source.yaml 生成多客户端 Clash 配置产物",
+  "main": "generate.js",
+  "scripts": {
+    "generate": "node generate.js",
+    "dev": "node generate.js --verbose"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
