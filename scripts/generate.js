@@ -58,6 +58,28 @@ function buildNameMap() {
 }
 
 /**
+ * 将 EXCLUDE_PATTERN 合并为负向 lookahead，注入到 include-all 组的 filter 中。
+ * - 无既有 filter：生成纯负向过滤 (?i)^(?!.*PATTERN).*
+ * - 有既有 filter 且以 (?i)^ 开头：在 ^ 后插入负向 lookahead
+ * - 有既有 filter 且以 ^ 开头：同上，保留 (?i)
+ * - 其他（如不带锚点的简单词组）：在前方直接前置 lookahead
+ */
+function mergeExcludeFilter(existingFilter) {
+    const neg = `(?!.*(?:${EXCLUDE_PATTERN}))`;
+    if (!existingFilter) {
+        return `(?i)^${neg}.*`;
+    }
+    if (/^\(\?i\)\^/.test(existingFilter)) {
+        return existingFilter.replace(/^\(\?i\)\^/, `(?i)^${neg}`);
+    }
+    if (/^\^/.test(existingFilter)) {
+        return existingFilter.replace(/^\^/, `(?i)^${neg}`);
+    }
+    // fallback：前置负向 lookahead，不破坏原有逻辑
+    return `${neg}${existingFilter}`;
+}
+
+/**
  * 中文策略组名 → 短 ASCII 前缀映射表（新增策略组时在此补充）
  */
 const GROUP_PREFIX = {
@@ -93,6 +115,8 @@ function urlToKey(url, group) {
 
 const src = yaml.load(fs.readFileSync(SOURCE_FILE, 'utf8'));
 const RAW_BASE = src.meta.raw_base;
+// (?i) 是 subconverter 专用语法；剥离后用于 JS RegExp 和 filter 负向注入
+const EXCLUDE_PATTERN = (src.exclude_remarks || '').replace(/^\(\?i\)/, '');
 
 log(`RAW_BASE = ${RAW_BASE}`);
 
@@ -266,7 +290,12 @@ function buildProxyGroups(nameMap = {}) {
         // proxies 中的引用也需同步替换为新名
         if (pg.proxies)      g.proxies      = pg.proxies.map(p => nameMap[p] ?? p);
         if (pg['include-all'] !== undefined) g['include-all'] = pg['include-all'];
-        if (pg.filter)       g.filter       = pg.filter;
+        // include-all 组自动注入 exclude_remarks 负向过滤，无需额外 filter.js
+        if (pg['include-all']) {
+            g.filter = mergeExcludeFilter(pg.filter);
+        } else if (pg.filter) {
+            g.filter = pg.filter;
+        }
         if (pg.url)          g.url          = pg.url;
         if (pg.interval)     g.interval     = pg.interval;
         if (pg.tolerance !== undefined) g.tolerance = pg.tolerance;
@@ -318,6 +347,12 @@ function main(config) {
         throw new Error('配置文件中未找到任何代理');
     }
 
+    // 过滤代理节点名称（与 subconverter exclude_remarks 保持一致）
+    const _excReg = new RegExp(${JSON.stringify(EXCLUDE_PATTERN)}, 'i');
+    if (Array.isArray(config.proxies)) {
+        config.proxies = config.proxies.filter(p => !_excReg.test(p.name));
+    }
+
     // 覆盖通用参数
 ${generalLines}
 
@@ -363,7 +398,12 @@ function genStoverride() {
         const g = { name: resolvedName, type: pg.type };
         if (pg.proxies)      g.proxies      = pg.proxies.map(p => nameMap[p] ?? p);
         if (pg['include-all'] !== undefined) g['include-all'] = pg['include-all'];
-        if (pg.filter)       g.filter       = pg.filter;
+        // include-all 组同步注入 exclude_remarks 负向过滤
+        if (pg['include-all']) {
+            g.filter = mergeExcludeFilter(pg.filter);
+        } else if (pg.filter) {
+            g.filter = pg.filter;
+        }
         if (pg.url)          g.url          = pg.url;
         if (pg.interval)     g.interval     = pg.interval;
         if (pg.tolerance !== undefined) g.tolerance = pg.tolerance;

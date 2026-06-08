@@ -24,6 +24,12 @@ function main(config) {
         throw new Error('配置文件中未找到任何代理');
     }
 
+    // 过滤代理节点名称（与 subconverter exclude_remarks 保持一致）
+    const _excReg = new RegExp("(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)", 'i');
+    if (Array.isArray(config.proxies)) {
+        config.proxies = config.proxies.filter(p => !_excReg.test(p.name));
+    }
+
     // 覆盖通用参数
     config["mixed-port"] = 7890;
     config["tcp-concurrent"] = true;
@@ -135,7 +141,8 @@ function main(config) {
                 "🧊 冷门节点",
                 "DIRECT"
             ],
-            "include-all": true
+            "include-all": true,
+            "filter": "(?i)^(?!.*(?:(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联))).*"
         },
         {
             "name": "🚀 国外网站",
@@ -302,7 +309,7 @@ function main(config) {
             "name": "⚡ 自动选择",
             "type": "url-test",
             "include-all": true,
-            "filter": "(?i)^(?=.*(🇭🇰|香港|HK|Hong\\s*Kong|🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞|🇸🇬|新加坡|狮城|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan))(?!.*(实验|低倍率|小鸡|chicken|vps|剩余|Expire|Traffic|GB|官网|网址|官址|套餐|应急|失联|重置|到期|过期|订阅)).*",
+            "filter": "(?i)^(?!.*(?:(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?=.*(🇭🇰|香港|HK|Hong\\s*Kong|🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞|🇸🇬|新加坡|狮城|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan))(?!.*(实验|低倍率|小鸡|chicken|vps|剩余|Expire|Traffic|GB|官网|网址|官址|套餐|应急|失联|重置|到期|过期|订阅)).*",
             "tolerance": 5
         },
         {
@@ -312,7 +319,7 @@ function main(config) {
             "name": "🏷️ 低倍率",
             "type": "url-test",
             "include-all": true,
-            "filter": "(?i)(实验|低倍率|低倍|0\\.[1-9]\\s*(?:x|倍)?|[1-5]折)",
+            "filter": "(?!.*(?:(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)(实验|低倍率|低倍|0\\.[1-9]\\s*(?:x|倍)?|[1-5]折)",
             "tolerance": 5
         },
         {
@@ -322,7 +329,7 @@ function main(config) {
             "name": "🐔 小鸡节点",
             "type": "url-test",
             "include-all": true,
-            "filter": "(?i)chicken|vps|server|小鸡|鸡",
+            "filter": "(?!.*(?:(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)chicken|vps|server|小鸡|鸡",
             "tolerance": 5
         },
         {
@@ -332,7 +339,7 @@ function main(config) {
             "name": "🇭🇰 香港节点",
             "type": "url-test",
             "include-all": true,
-            "filter": "(?i)🇭🇰|香港|HK|Hong\\s*Kong",
+            "filter": "(?!.*(?:(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇭🇰|香港|HK|Hong\\s*Kong",
             "tolerance": 5
         },
         {
@@ -342,7 +349,7 @@ function main(config) {
             "name": "🇺🇲 美国节点",
             "type": "url-test",
             "include-all": true,
-            "filter": "(?i)🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞",
+            "filter": "(?!.*(?:(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞",
             "tolerance": 5
         },
         {
@@ -352,7 +359,7 @@ function main(config) {
             "name": "🇸🇬 狮城节点",
             "type": "url-test",
             "include-all": true,
-            "filter": "(?i)🇸🇬|新加坡|狮城|SG|Singapore",
+            "filter": "(?!.*(?:(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇸🇬|新加坡|狮城|SG|Singapore",
             "tolerance": 5
         },
         {
@@ -362,7 +369,7 @@ function main(config) {
             "name": "🇪🇺 欧洲节点",
             "type": "url-test",
             "include-all": true,
-            "filter": "(?i)🇪🇺|欧洲|Europe|🇩🇪|德国|Germany|Frankfurt|法兰克福|Berlin|柏林|🇳🇱|荷兰|Netherlands|Amsterdam|阿姆斯特丹|🇬🇧|英国|United.?Kingdom|London|伦敦|🇫🇷|法国|France|Paris|巴黎|🇮🇪|爱尔兰|Ireland|Dublin|都柏林",
+            "filter": "(?!.*(?:(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇪🇺|欧洲|Europe|🇩🇪|德国|Germany|Frankfurt|法兰克福|Berlin|柏林|🇳🇱|荷兰|Netherlands|Amsterdam|阿姆斯特丹|🇬🇧|英国|United.?Kingdom|London|伦敦|🇫🇷|法国|France|Paris|巴黎|🇮🇪|爱尔兰|Ireland|Dublin|都柏林",
             "tolerance": 5
         },
         {
@@ -372,7 +379,7 @@ function main(config) {
             "name": "🇹🇷 土耳其节点",
             "type": "url-test",
             "include-all": true,
-            "filter": "(?i)🇹🇷|土耳其|TR|Turkey|Turkiye|Türkiye|Istanbul",
+            "filter": "(?!.*(?:(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇹🇷|土耳其|TR|Turkey|Turkiye|Türkiye|Istanbul",
             "tolerance": 5
         },
         {
@@ -382,7 +389,7 @@ function main(config) {
             "name": "🇯🇵 日本节点",
             "type": "url-test",
             "include-all": true,
-            "filter": "(?i)🇯🇵|日本|东京|JP|Japan",
+            "filter": "(?!.*(?:(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇯🇵|日本|东京|JP|Japan",
             "tolerance": 5
         },
         {
@@ -392,14 +399,14 @@ function main(config) {
             "name": "🇹🇼 台湾节点",
             "type": "url-test",
             "include-all": true,
-            "filter": "(?i)🇹🇼|台湾|TW|Taiwan|Tai",
+            "filter": "(?!.*(?:(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇹🇼|台湾|TW|Taiwan|Tai",
             "tolerance": 5
         },
         {
             "name": "🧊 冷门节点",
             "type": "select",
             "include-all": true,
-            "filter": "^(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|🇺🇲|美国|洛杉矶|圣何塞|US|United.?States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan|剩余|Expire|Traffic|GB)).*"
+            "filter": "(?i)^(?!.*(?:(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|🇺🇲|美国|洛杉矶|圣何塞|US|United.?States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan|剩余|Expire|Traffic|GB)).*"
         },
         {
             "name": "🛑 广告隐私",
