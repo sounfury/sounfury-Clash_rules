@@ -544,4 +544,4 @@ rules: #!replace
 
   - GEOSITE,cn,🎯 全球直连
   - GEOIP,CN,🎯 全球直连,no-resolve
-  - FINAL,🐟 漏网之鱼
+  - MATCH,🐟 漏网之鱼
