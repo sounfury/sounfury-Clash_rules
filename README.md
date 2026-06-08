@@ -34,4 +34,4 @@ https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/output/stas
 
 ## 维护
 
-只需编辑 `source.yaml` 或 `list/*.list`，推送后 GitHub Action 自动更新以上三个产物。
+只需编辑 `source.yaml` 或 `rule/*.list`，推送后 GitHub Action 自动更新以上三个产物。

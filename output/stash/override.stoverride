@@ -59,14 +59,12 @@ proxy-groups: #!replace
       - 🧊 冷门节点
       - DIRECT
     include-all: true
-    icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/applesafari.png
   - name: 🚀 国外网站
     type: select
     proxies:
       - ⚡ 自动选择
       - 👋 手动切换
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
-  - name: 📨 Telegram
+  - name: Telegram
     type: select
     proxies:
       - ⚡ 自动选择
@@ -91,7 +89,6 @@ proxy-groups: #!replace
       - 🇹🇼 台湾节点
       - 🧊 冷门节点
       - 👋 手动切换
-    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png
   - name: 🎮 游戏服务
     type: select
     proxies:
@@ -105,8 +102,7 @@ proxy-groups: #!replace
       - 🧊 冷门节点
       - 👋 手动切换
       - DIRECT
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png
-  - name: 📺 Emby
+  - name: Emby
     type: select
     proxies:
       - 🏷️ 低倍率
@@ -119,7 +115,7 @@ proxy-groups: #!replace
       - 👋 手动切换
       - DIRECT
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Emby.png
-  - name: 🎶 Spotify
+  - name: Spotify
     type: select
     proxies:
       - 🇹🇷 土耳其节点
@@ -139,7 +135,6 @@ proxy-groups: #!replace
       - 🇪🇺 欧洲节点
       - 🇺🇲 美国节点
       - 👋 手动切换
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/NSFW.png
   - name: 🥵 不许涩涩
     type: select
     proxies:
@@ -152,7 +147,6 @@ proxy-groups: #!replace
       - 🧊 冷门节点
       - 👋 手动切换
       - DIRECT
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Reject.png
   - name: 🐟 漏网之鱼
     type: select
     proxies:
@@ -165,7 +159,6 @@ proxy-groups: #!replace
       - 🧊 冷门节点
       - 👋 手动切换
       - DIRECT
-    icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg
   - name: 📦 大宗流量
     type: select
     proxies:
@@ -178,7 +171,6 @@ proxy-groups: #!replace
       - 🧊 冷门节点
       - 👋 手动切换
       - DIRECT
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png
   - name: 💻 环境仓库
     type: select
     proxies:
@@ -192,7 +184,6 @@ proxy-groups: #!replace
       - 🧊 冷门节点
       - 👋 手动切换
       - DIRECT
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Developer.png
   - name: ⚡ 自动选择
     type: url-test
     include-all: true
@@ -201,7 +192,6 @@ proxy-groups: #!replace
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
   - name: 🏷️ 低倍率
     type: url-test
     include-all: true
@@ -209,7 +199,6 @@ proxy-groups: #!replace
     url: https://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cheap.png
   - name: 🐔 小鸡节点
     type: url-test
     include-all: true
@@ -217,7 +206,6 @@ proxy-groups: #!replace
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png
   - name: 🇭🇰 香港节点
     type: url-test
     include-all: true
@@ -225,7 +213,6 @@ proxy-groups: #!replace
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
   - name: 🇺🇲 美国节点
     type: url-test
     include-all: true
@@ -233,7 +220,6 @@ proxy-groups: #!replace
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
   - name: 🇸🇬 狮城节点
     type: url-test
     include-all: true
@@ -241,7 +227,6 @@ proxy-groups: #!replace
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
   - name: 🇪🇺 欧洲节点
     type: url-test
     include-all: true
@@ -249,7 +234,6 @@ proxy-groups: #!replace
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/European_Union.png
   - name: 🇹🇷 土耳其节点
     type: url-test
     include-all: true
@@ -257,7 +241,6 @@ proxy-groups: #!replace
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Turkey.png
   - name: 🇯🇵 日本节点
     type: url-test
     include-all: true
@@ -265,7 +248,6 @@ proxy-groups: #!replace
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
   - name: 🇹🇼 台湾节点
     type: url-test
     include-all: true
@@ -273,12 +255,10 @@ proxy-groups: #!replace
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png
   - name: 🧊 冷门节点
     type: select
     include-all: true
     filter: ^(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|🇺🇲|美国|洛杉矶|圣何塞|US|United.?States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan|剩余|Expire|Traffic|GB)).*
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png
   - name: 🛑 广告隐私
     type: select
     proxies:
@@ -315,7 +295,7 @@ rule-providers: #!replace
     type: http
     behavior: classical
     format: text
-    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/direct.list
+    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/direct.list
     path: ./ruleset/sounfury/direct_direct.list
     interval: 86400
   direct_ChinaDomain:
@@ -378,7 +358,7 @@ rule-providers: #!replace
     type: http
     behavior: classical
     format: text
-    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/ai.list
+    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/ai.list
     path: ./ruleset/sounfury/ai_ai.list
     interval: 86400
   ai_ai_1:
@@ -392,14 +372,14 @@ rule-providers: #!replace
     type: http
     behavior: classical
     format: text
-    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/low.list
+    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/low.list
     path: ./ruleset/sounfury/low_low.list
     interval: 86400
   env_env_repo:
     type: http
     behavior: classical
     format: text
-    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/env-repo.list
+    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/env-repo.list
     path: ./ruleset/sounfury/env_env_repo.list
     interval: 86400
   game_GamePlatform:
@@ -413,28 +393,28 @@ rule-providers: #!replace
     type: http
     behavior: classical
     format: text
-    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/Emby.list
+    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/Emby.list
     path: ./ruleset/sounfury/emby_Emby.list
     interval: 86400
   spotify_Spotify:
     type: http
     behavior: classical
     format: text
-    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/Spotify.list
+    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/Spotify.list
     path: ./ruleset/sounfury/spotify_Spotify.list
     interval: 86400
   ehentai_ehentai:
     type: http
     behavior: classical
     format: text
-    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/ehentai.list
+    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/ehentai.list
     path: ./ruleset/sounfury/ehentai_ehentai.list
     interval: 86400
   sexy_sexy:
     type: http
     behavior: classical
     format: text
-    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/sexy.list
+    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/sexy.list
     path: ./ruleset/sounfury/sexy_sexy.list
     interval: 86400
   tg_telegram:
@@ -490,7 +470,7 @@ rule-providers: #!replace
     type: http
     behavior: classical
     format: text
-    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/proxy.list
+    url: https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/proxy.list
     path: ./ruleset/sounfury/proxy_proxy.list
     interval: 86400
   proxy_ProxyLite:
@@ -519,12 +499,12 @@ rules: #!replace
   - RULE-SET,low_low,📦 大宗流量
   - RULE-SET,env_env_repo,💻 环境仓库
   - RULE-SET,game_GamePlatform,🎮 游戏服务
-  - RULE-SET,emby_Emby,📺 Emby
-  - RULE-SET,spotify_Spotify,🎶 Spotify
+  - RULE-SET,emby_Emby,Emby
+  - RULE-SET,spotify_Spotify,Spotify
   - RULE-SET,ehentai_ehentai,📚 E站
   - RULE-SET,sexy_sexy,🥵 不许涩涩
-  - RULE-SET,tg_telegram,📨 Telegram
-  - RULE-SET,tg_telegram_1,📨 Telegram
+  - RULE-SET,tg_telegram,Telegram
+  - RULE-SET,tg_telegram_1,Telegram
   - RULE-SET,proxy_GoogleFCM,🚀 国外网站
   - RULE-SET,proxy_Netflix,🚀 国外网站
   - RULE-SET,proxy_Netflix_1,🚀 国外网站

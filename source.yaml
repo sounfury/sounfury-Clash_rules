@@ -107,7 +107,7 @@ rulesets:
   # 全球直连
   - group: 🎯 全球直连
     rules:
-      - url: $self/list/direct.list
+      - url: $self/rule/direct.list
       - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list
       - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list
       - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list
@@ -120,18 +120,18 @@ rulesets:
   # AI
   - group: 🤖 AI
     rules:
-      - url: $self/list/ai.list
+      - url: $self/rule/ai.list
       - url: https://ruleset.skk.moe/Clash/non_ip/ai.txt
 
   # 大宗流量
   - group: 📦 大宗流量
     rules:
-      - url: $self/list/low.list
+      - url: $self/rule/low.list
 
   # 开发环境仓库
   - group: 💻 环境仓库
     rules:
-      - url: $self/list/env-repo.list
+      - url: $self/rule/env-repo.list
 
   # 游戏服务
   - group: 🎮 游戏服务
@@ -141,22 +141,22 @@ rulesets:
   # Emby
   - group: 📺 Emby
     rules:
-      - url: $self/list/Emby.list
+      - url: $self/rule/Emby.list
 
   # Spotify
   - group: 🎶 Spotify
     rules:
-      - url: $self/list/Spotify.list
+      - url: $self/rule/Spotify.list
 
   # E站
   - group: 📚 E站
     rules:
-      - url: $self/list/ehentai.list
+      - url: $self/rule/ehentai.list
 
   # 成人内容
   - group: 🥵 不许涩涩
     rules:
-      - url: $self/list/sexy.list
+      - url: $self/rule/sexy.list
 
   # Telegram
   - group: 📨 Telegram
@@ -172,7 +172,7 @@ rulesets:
       - url: https://raw.githubusercontent.com/LM-Firefly/Rules/master/Global-Services/Netflix.list
       - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/DisneyPlus.list
       - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Bahamut.list
-      - url: $self/list/proxy.list
+      - url: $self/rule/proxy.list
       - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyLite.list
 
 # ─── 尾部规则（GEOSITE / GEOIP / MATCH） ────────────────────
@@ -203,14 +203,12 @@ proxy_groups:
       - 🧊 冷门节点
       - DIRECT
     include-all: true
-    icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/applesafari.png
 
   - name: 🚀 国外网站
     type: select
     proxies:
       - ⚡ 自动选择
       - 👋 手动切换
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
 
   - name: 📨 Telegram
     type: select
@@ -238,7 +236,6 @@ proxy_groups:
       - 🇹🇼 台湾节点
       - 🧊 冷门节点
       - 👋 手动切换
-    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png
 
   - name: 🎮 游戏服务
     type: select
@@ -253,7 +250,6 @@ proxy_groups:
       - 🧊 冷门节点
       - 👋 手动切换
       - DIRECT
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png
 
   - name: 📺 Emby
     type: select
@@ -290,7 +286,6 @@ proxy_groups:
       - 🇪🇺 欧洲节点
       - 🇺🇲 美国节点
       - 👋 手动切换
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/NSFW.png
 
   - name: 🥵 不许涩涩
     type: select
@@ -304,7 +299,6 @@ proxy_groups:
       - 🧊 冷门节点
       - 👋 手动切换
       - DIRECT
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Reject.png
 
   - name: 🐟 漏网之鱼
     type: select
@@ -318,7 +312,6 @@ proxy_groups:
       - 🧊 冷门节点
       - 👋 手动切换
       - DIRECT
-    icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg
 
   - name: 📦 大宗流量
     type: select
@@ -332,7 +325,6 @@ proxy_groups:
       - 🧊 冷门节点
       - 👋 手动切换
       - DIRECT
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png
 
   - name: 💻 环境仓库
     type: select
@@ -347,7 +339,6 @@ proxy_groups:
       - 🧊 冷门节点
       - 👋 手动切换
       - DIRECT
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Developer.png
 
   # ── 自动测速组 ────────────────────────────────────────────
 
@@ -358,7 +349,6 @@ proxy_groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
 
   # 低倍率节点命名不统一，兼容"实验/低倍/0.x/折扣"等常见写法
   - name: 🏷️ 低倍率
@@ -368,7 +358,6 @@ proxy_groups:
     url: https://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cheap.png
 
   - name: 🐔 小鸡节点
     type: url-test
@@ -377,7 +366,6 @@ proxy_groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png
 
   # ── 地区组 ───────────────────────────────────────────────
 
@@ -388,7 +376,6 @@ proxy_groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
 
   - name: 🇺🇲 美国节点
     type: url-test
@@ -397,7 +384,6 @@ proxy_groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
 
   - name: 🇸🇬 狮城节点
     type: url-test
@@ -406,7 +392,6 @@ proxy_groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
 
   - name: 🇪🇺 欧洲节点
     type: url-test
@@ -415,7 +400,6 @@ proxy_groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/European_Union.png
 
   - name: 🇹🇷 土耳其节点
     type: url-test
@@ -424,7 +408,6 @@ proxy_groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Turkey.png
 
   - name: 🇯🇵 日本节点
     type: url-test
@@ -433,7 +416,6 @@ proxy_groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
 
   - name: 🇹🇼 台湾节点
     type: url-test
@@ -442,14 +424,12 @@ proxy_groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png
 
   # 负向筛选常见地区和订阅信息节点，保留主流地区以外的可选出口
   - name: 🧊 冷门节点
     type: select
     include-all: true
     filter: '^(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|🇺🇲|美国|洛杉矶|圣何塞|US|United.?States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan|剩余|Expire|Traffic|GB)).*'
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png
 
   # ── 特殊组 ───────────────────────────────────────────────
 

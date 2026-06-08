@@ -135,8 +135,7 @@ function main(config) {
                 "🧊 冷门节点",
                 "DIRECT"
             ],
-            "include-all": true,
-            "icon": "https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/applesafari.png"
+            "include-all": true
         },
         {
             "name": "🚀 国外网站",
@@ -144,11 +143,10 @@ function main(config) {
             "proxies": [
                 "⚡ 自动选择",
                 "👋 手动切换"
-            ],
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png"
+            ]
         },
         {
-            "name": "📨 Telegram",
+            "name": "Telegram",
             "type": "select",
             "proxies": [
                 "⚡ 自动选择",
@@ -176,8 +174,7 @@ function main(config) {
                 "🇹🇼 台湾节点",
                 "🧊 冷门节点",
                 "👋 手动切换"
-            ],
-            "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
+            ]
         },
         {
             "name": "🎮 游戏服务",
@@ -193,11 +190,10 @@ function main(config) {
                 "🧊 冷门节点",
                 "👋 手动切换",
                 "DIRECT"
-            ],
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png"
+            ]
         },
         {
-            "name": "📺 Emby",
+            "name": "Emby",
             "type": "select",
             "proxies": [
                 "🏷️ 低倍率",
@@ -213,7 +209,7 @@ function main(config) {
             "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Emby.png"
         },
         {
-            "name": "🎶 Spotify",
+            "name": "Spotify",
             "type": "select",
             "proxies": [
                 "🇹🇷 土耳其节点",
@@ -236,8 +232,7 @@ function main(config) {
                 "🇪🇺 欧洲节点",
                 "🇺🇲 美国节点",
                 "👋 手动切换"
-            ],
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/NSFW.png"
+            ]
         },
         {
             "name": "🥵 不许涩涩",
@@ -252,8 +247,7 @@ function main(config) {
                 "🧊 冷门节点",
                 "👋 手动切换",
                 "DIRECT"
-            ],
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Reject.png"
+            ]
         },
         {
             "name": "🐟 漏网之鱼",
@@ -268,8 +262,7 @@ function main(config) {
                 "🧊 冷门节点",
                 "👋 手动切换",
                 "DIRECT"
-            ],
-            "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/fish.svg"
+            ]
         },
         {
             "name": "📦 大宗流量",
@@ -284,8 +277,7 @@ function main(config) {
                 "🧊 冷门节点",
                 "👋 手动切换",
                 "DIRECT"
-            ],
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png"
+            ]
         },
         {
             "name": "💻 环境仓库",
@@ -301,8 +293,7 @@ function main(config) {
                 "🧊 冷门节点",
                 "👋 手动切换",
                 "DIRECT"
-            ],
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Developer.png"
+            ]
         },
         {
             "interval": 300,
@@ -312,8 +303,7 @@ function main(config) {
             "type": "url-test",
             "include-all": true,
             "filter": "(?i)^(?=.*(🇭🇰|香港|HK|Hong\\s*Kong|🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞|🇸🇬|新加坡|狮城|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan))(?!.*(实验|低倍率|小鸡|chicken|vps|剩余|Expire|Traffic|GB|官网|网址|官址|套餐|应急|失联|重置|到期|过期|订阅)).*",
-            "tolerance": 5,
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png"
+            "tolerance": 5
         },
         {
             "interval": 300,
@@ -323,8 +313,7 @@ function main(config) {
             "type": "url-test",
             "include-all": true,
             "filter": "(?i)(实验|低倍率|低倍|0\\.[1-9]\\s*(?:x|倍)?|[1-5]折)",
-            "tolerance": 5,
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cheap.png"
+            "tolerance": 5
         },
         {
             "interval": 300,
@@ -334,8 +323,7 @@ function main(config) {
             "type": "url-test",
             "include-all": true,
             "filter": "(?i)chicken|vps|server|小鸡|鸡",
-            "tolerance": 5,
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png"
+            "tolerance": 5
         },
         {
             "interval": 300,
@@ -345,8 +333,7 @@ function main(config) {
             "type": "url-test",
             "include-all": true,
             "filter": "(?i)🇭🇰|香港|HK|Hong\\s*Kong",
-            "tolerance": 5,
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png"
+            "tolerance": 5
         },
         {
             "interval": 300,
@@ -356,8 +343,7 @@ function main(config) {
             "type": "url-test",
             "include-all": true,
             "filter": "(?i)🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞",
-            "tolerance": 5,
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png"
+            "tolerance": 5
         },
         {
             "interval": 300,
@@ -367,8 +353,7 @@ function main(config) {
             "type": "url-test",
             "include-all": true,
             "filter": "(?i)🇸🇬|新加坡|狮城|SG|Singapore",
-            "tolerance": 5,
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"
+            "tolerance": 5
         },
         {
             "interval": 300,
@@ -378,8 +363,7 @@ function main(config) {
             "type": "url-test",
             "include-all": true,
             "filter": "(?i)🇪🇺|欧洲|Europe|🇩🇪|德国|Germany|Frankfurt|法兰克福|Berlin|柏林|🇳🇱|荷兰|Netherlands|Amsterdam|阿姆斯特丹|🇬🇧|英国|United.?Kingdom|London|伦敦|🇫🇷|法国|France|Paris|巴黎|🇮🇪|爱尔兰|Ireland|Dublin|都柏林",
-            "tolerance": 5,
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/European_Union.png"
+            "tolerance": 5
         },
         {
             "interval": 300,
@@ -389,8 +373,7 @@ function main(config) {
             "type": "url-test",
             "include-all": true,
             "filter": "(?i)🇹🇷|土耳其|TR|Turkey|Turkiye|Türkiye|Istanbul",
-            "tolerance": 5,
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Turkey.png"
+            "tolerance": 5
         },
         {
             "interval": 300,
@@ -400,8 +383,7 @@ function main(config) {
             "type": "url-test",
             "include-all": true,
             "filter": "(?i)🇯🇵|日本|东京|JP|Japan",
-            "tolerance": 5,
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png"
+            "tolerance": 5
         },
         {
             "interval": 300,
@@ -411,15 +393,13 @@ function main(config) {
             "type": "url-test",
             "include-all": true,
             "filter": "(?i)🇹🇼|台湾|TW|Taiwan|Tai",
-            "tolerance": 5,
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png"
+            "tolerance": 5
         },
         {
             "name": "🧊 冷门节点",
             "type": "select",
             "include-all": true,
-            "filter": "^(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|🇺🇲|美国|洛杉矶|圣何塞|US|United.?States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan|剩余|Expire|Traffic|GB)).*",
-            "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Available.png"
+            "filter": "^(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|🇺🇲|美国|洛杉矶|圣何塞|US|United.?States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan|剩余|Expire|Traffic|GB)).*"
         },
         {
             "name": "🛑 广告隐私",
@@ -468,7 +448,7 @@ function main(config) {
             "type": "http",
             "behavior": "classical",
             "format": "text",
-            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/direct.list",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/direct.list",
             "path": "./ruleset/sounfury/direct_direct.list",
             "interval": 86400
         },
@@ -540,7 +520,7 @@ function main(config) {
             "type": "http",
             "behavior": "classical",
             "format": "text",
-            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/ai.list",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/ai.list",
             "path": "./ruleset/sounfury/ai_ai.list",
             "interval": 86400
         },
@@ -556,7 +536,7 @@ function main(config) {
             "type": "http",
             "behavior": "classical",
             "format": "text",
-            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/low.list",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/low.list",
             "path": "./ruleset/sounfury/low_low.list",
             "interval": 86400
         },
@@ -564,7 +544,7 @@ function main(config) {
             "type": "http",
             "behavior": "classical",
             "format": "text",
-            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/env-repo.list",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/env-repo.list",
             "path": "./ruleset/sounfury/env_env_repo.list",
             "interval": 86400
         },
@@ -580,7 +560,7 @@ function main(config) {
             "type": "http",
             "behavior": "classical",
             "format": "text",
-            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/Emby.list",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/Emby.list",
             "path": "./ruleset/sounfury/emby_Emby.list",
             "interval": 86400
         },
@@ -588,7 +568,7 @@ function main(config) {
             "type": "http",
             "behavior": "classical",
             "format": "text",
-            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/Spotify.list",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/Spotify.list",
             "path": "./ruleset/sounfury/spotify_Spotify.list",
             "interval": 86400
         },
@@ -596,7 +576,7 @@ function main(config) {
             "type": "http",
             "behavior": "classical",
             "format": "text",
-            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/ehentai.list",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/ehentai.list",
             "path": "./ruleset/sounfury/ehentai_ehentai.list",
             "interval": 86400
         },
@@ -604,7 +584,7 @@ function main(config) {
             "type": "http",
             "behavior": "classical",
             "format": "text",
-            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/sexy.list",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/sexy.list",
             "path": "./ruleset/sounfury/sexy_sexy.list",
             "interval": 86400
         },
@@ -668,7 +648,7 @@ function main(config) {
             "type": "http",
             "behavior": "classical",
             "format": "text",
-            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/list/proxy.list",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/proxy.list",
             "path": "./ruleset/sounfury/proxy_proxy.list",
             "interval": 86400
         },
@@ -701,12 +681,12 @@ function main(config) {
         "RULE-SET,low_low,📦 大宗流量",
         "RULE-SET,env_env_repo,💻 环境仓库",
         "RULE-SET,game_GamePlatform,🎮 游戏服务",
-        "RULE-SET,emby_Emby,📺 Emby",
-        "RULE-SET,spotify_Spotify,🎶 Spotify",
+        "RULE-SET,emby_Emby,Emby",
+        "RULE-SET,spotify_Spotify,Spotify",
         "RULE-SET,ehentai_ehentai,📚 E站",
         "RULE-SET,sexy_sexy,🥵 不许涩涩",
-        "RULE-SET,tg_telegram,📨 Telegram",
-        "RULE-SET,tg_telegram_1,📨 Telegram",
+        "RULE-SET,tg_telegram,Telegram",
+        "RULE-SET,tg_telegram_1,Telegram",
         "RULE-SET,proxy_GoogleFCM,🚀 国外网站",
         "RULE-SET,proxy_Netflix,🚀 国外网站",
         "RULE-SET,proxy_Netflix_1,🚀 国外网站",

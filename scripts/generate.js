@@ -37,6 +37,26 @@ function resolveSelf(url, rawBase) {
     return url.replace(/^\$self/, rawBase);
 }
 
+/** 剥离名称开头的 Emoji 字符及其后空格（Unicode Emoji_Presentation 属性匹配） */
+function stripLeadingEmoji(name) {
+    return name.replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}]\uFE0F?\s*/u, '');
+}
+
+/**
+ * 构建「有 icon 的组」名称映射表：原始 emoji 名 → 去 emoji 名。
+ * 仅 JS / stoverride 产物使用，INI 继续保留完整 emoji 名。
+ */
+function buildNameMap() {
+    const map = {};
+    for (const pg of src.proxy_groups) {
+        if (pg.icon) {
+            const stripped = stripLeadingEmoji(pg.name);
+            if (stripped !== pg.name) map[pg.name] = stripped;
+        }
+    }
+    return map;
+}
+
 /**
  * 中文策略组名 → 短 ASCII 前缀映射表（新增策略组时在此补充）
  */
@@ -197,8 +217,9 @@ function buildRuleProviders() {
 /**
  * 构建 rules 数组（JS/stoverride 共用）。
  * 对应 rule-providers 的 key 与 buildRuleProviders() 保持一致顺序。
+ * nameMap: 有 icon 的组名映射，保证规则中的 group 引用与 proxy-groups name 一致。
  */
-function buildRules() {
+function buildRules(nameMap = {}) {
     const rules    = [];
     const keyCount = {};
 
@@ -211,30 +232,39 @@ function buildRules() {
                 keyCount[key]++;
                 key = `${key}_${keyCount[key]}`;
             }
-            rules.push(`RULE-SET,${key},${rs.group}`);
+            // 若该组有 icon，rules 中的目标组名同步替换为无 emoji 版本
+            const groupName = nameMap[rs.group] ?? rs.group;
+            rules.push(`RULE-SET,${key},${groupName}`);
         }
     }
 
     // 追加尾部规则
     for (const tr of src.tail_rules) {
         const suffix = tr.literal.startsWith('GEOIP') ? ',no-resolve' : '';
-        rules.push(`${tr.literal},${tr.group}${suffix}`);
+        const groupName = nameMap[tr.group] ?? tr.group;
+        rules.push(`${tr.literal},${groupName}${suffix}`);
     }
 
     return rules;
 }
 
-/** 构建 proxy-groups 数组（JS 格式，保留全量字段） */
-function buildProxyGroups() {
+/**
+ * 构建 proxy-groups 数组（JS 格式，保留全量字段）。
+ * nameMap: 有 icon 的组「emoji名 → 无emoji名」，用于同步重命名 proxies 引用。
+ */
+function buildProxyGroups(nameMap = {}) {
     return src.proxy_groups.map(pg => {
+        // 有 icon 时去掉 name 开头的 emoji，避免客户端同时显示 emoji 和图标
+        const resolvedName = nameMap[pg.name] ?? pg.name;
         const g = {
             interval: 300,
             url:      'http://www.gstatic.com/generate_204',
             'max-failed-times': 3,
-            name: pg.name,
+            name: resolvedName,
             type: pg.type,
         };
-        if (pg.proxies)      g.proxies      = pg.proxies;
+        // proxies 中的引用也需同步替换为新名
+        if (pg.proxies)      g.proxies      = pg.proxies.map(p => nameMap[p] ?? p);
         if (pg['include-all'] !== undefined) g['include-all'] = pg['include-all'];
         if (pg.filter)       g.filter       = pg.filter;
         if (pg.url)          g.url          = pg.url;
@@ -252,9 +282,10 @@ function buildProxyGroups() {
 }
 
 function genPartyJs() {
+    const nameMap    = buildNameMap();
     const providers  = buildRuleProviders();
-    const rules      = buildRules();
-    const groups     = buildProxyGroups();
+    const rules      = buildRules(nameMap);
+    const groups     = buildProxyGroups(nameMap);
 
     // 构建 general 字段覆盖代码
     const generalLines = Object.entries(src.general || {})
@@ -323,11 +354,14 @@ ${generalLines}
  * Stash 的 #!replace 需要紧跟在 key 后面的同行注释中。
  */
 function genStoverride() {
+    const nameMap   = buildNameMap();
     const providers = buildRuleProviders();
-    const rules     = buildRules();
+    const rules     = buildRules(nameMap);
     const groups    = src.proxy_groups.map(pg => {
-        const g = { name: pg.name, type: pg.type };
-        if (pg.proxies)      g.proxies      = pg.proxies;
+        // 同 genPartyJs：有 icon 的组去掉开头 emoji
+        const resolvedName = nameMap[pg.name] ?? pg.name;
+        const g = { name: resolvedName, type: pg.type };
+        if (pg.proxies)      g.proxies      = pg.proxies.map(p => nameMap[p] ?? p);
         if (pg['include-all'] !== undefined) g['include-all'] = pg['include-all'];
         if (pg.filter)       g.filter       = pg.filter;
         if (pg.url)          g.url          = pg.url;
