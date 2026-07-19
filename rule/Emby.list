@@ -5,5 +5,8 @@ DOMAIN-SUFFIX,biliblili.uk
 # custom 二次元emby
 DOMAIN,media.nijigem.by
 
+# iris 系列 Emby（关键词匹配）
+DOMAIN-KEYWORD,iris
+
 # 漏网之鱼新增
 DOMAIN,emby.dnscf.dpdns.org
