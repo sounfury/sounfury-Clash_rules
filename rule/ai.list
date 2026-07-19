@@ -19,6 +19,8 @@ DOMAIN-SUFFIX,geospy.ai
 
 # cursor
 DOMAIN-SUFFIX,cursor.sh
+DOMAIN-SUFFIX,cursor.com
+DOMAIN-SUFFIX,cursorapi.com
 
 
 # Claude
@@ -38,9 +40,14 @@ DOMAIN-SUFFIX,scf.usercontent.goog
 DOMAIN-SUFFIX,open-vsx.org
 DOMAIN-SUFFIX,exp-tas.com
 PROCESS-NAME,antigravity.exe
+DOMAIN,antigravity-hub-auto-updater-974169037036.us-central1.run.app
 
 # 2026-03-23 漏网之鱼新增
 DOMAIN-SUFFIX,platinumai.net
 
 # 2026-04-10 漏网之鱼新增
 DOMAIN,llm-metadata.pages.dev
+
+# 2026-07-20 漏网之鱼新增
+DOMAIN-SUFFIX,meshy.ai
+DOMAIN-SUFFIX,context7.com

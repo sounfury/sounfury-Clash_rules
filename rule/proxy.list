@@ -72,3 +72,14 @@ DOMAIN-SUFFIX,azure.com
 
 # 2026-04-22 漏网之鱼新增
 DOMAIN-KEYWORD,stash
+
+# 2026-07-20 漏网之鱼新增
+DOMAIN-SUFFIX,ldstatic.com
+DOMAIN-SUFFIX,cookielaw.org
+DOMAIN-SUFFIX,opensubtitles.com
+DOMAIN-SUFFIX,ziffstatic.com
+DOMAIN-SUFFIX,dnacdn.net
+DOMAIN-SUFFIX,app-us1.com
+DOMAIN-SUFFIX,appteka.store
+# iris 弹幕 API
+DOMAIN-SUFFIX,irisnb.com

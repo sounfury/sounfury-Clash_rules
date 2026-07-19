@@ -90,7 +90,7 @@ DOMAIN-SUFFIX,dell.com
 DOMAIN-SUFFIX,accounts.firefox.com
 DOMAIN,content-signature-2.cdn.mozilla.net
 DOMAIN,ocsp.sectigo.com
-DOMAIN,x1.c.lencr.org
+DOMAIN-SUFFIX,lencr.org
 DOMAIN,c.pki.goog
 DOMAIN-SUFFIX,sounfury.top
 # clash公共web面板
@@ -111,3 +111,14 @@ IP-CIDR6,::1/128
 DOMAIN-SUFFIX,usertrust.com
 DOMAIN-SUFFIX,ssl.com
 DOMAIN,ota.nvidia.com
+
+# 2026-07-20 漏网之鱼新增
+DOMAIN-SUFFIX,ooklaserver.net
+DOMAIN-SUFFIX,speedtest.net
+DOMAIN-SUFFIX,dandanplay.net
+DOMAIN-SUFFIX,steamconnecttest.com
+DOMAIN-SUFFIX,gh-proxy.org
+DOMAIN-SUFFIX,ghfast.top
+DOMAIN-SUFFIX,misaka.one
+DOMAIN-SUFFIX,mymonitor.space
+DOMAIN,api.hills.im
