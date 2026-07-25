@@ -1,10 +1,17 @@
-# 默认哪些网站走低倍率
+# 默认哪些网站走低倍率 / 大宗流量
 
 # Google Drive
 DOMAIN,drive.usercontent.google.com
 
 # MEGA
 DOMAIN-SUFFIX,mega.co.nz
+
+# PikPak 云盘下载
+DOMAIN-SUFFIX,mypikpak.com
+DOMAIN-SUFFIX,mypikpak.net
+DOMAIN-SUFFIX,pikpak.me
+DOMAIN-SUFFIX,pikpakdrive.com
+DOMAIN-KEYWORD,mypikpak
 
 # PornHub
 DOMAIN-SUFFIX,phncdn.com

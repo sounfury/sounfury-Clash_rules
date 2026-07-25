@@ -1,0 +1,14 @@
+# 纯 JS 方案下 profile 只需占位（可挂任意本地空配置）。
+# 节点源 / 策略组 / 规则 全部由 override.js 注入。
+#
+# Party：
+#   1. 新建本地配置，内容可仅如下
+#   2. 覆写挂 experiments/dual-airport-pc/override.js
+#   3. 保证 work\proxies\ 下有花云 / Hneko 文件（见 override.js 顶部注释）
+
+mixed-port: 7890
+mode: rule
+proxies: []
+proxy-groups: []
+rules:
+  - MATCH,DIRECT
