@@ -81,6 +81,12 @@ function main(config) {
             ]
         },
         "nameserver-policy": {
+            "+.googleapis.cn": "https://posvdm.cloudflare-gateway.com/dns-query",
+            "+.googleapis.com": "https://posvdm.cloudflare-gateway.com/dns-query",
+            "+.gvt1.com": "https://posvdm.cloudflare-gateway.com/dns-query",
+            "+.gvt2.com": "https://posvdm.cloudflare-gateway.com/dns-query",
+            "+.xn--ngstr-lra8j.com": "https://posvdm.cloudflare-gateway.com/dns-query",
+            "geosite:google": "https://posvdm.cloudflare-gateway.com/dns-query",
             "geosite:cn,private,apple": "https://dns.alidns.com/dns-query",
             "geosite:!cn,gfw": "https://posvdm.cloudflare-gateway.com/dns-query"
         }
@@ -451,6 +457,14 @@ function main(config) {
             "path": "./ruleset/sounfury/ad_reject.list",
             "interval": 86400
         },
+        "proxy_google_play": {
+            "type": "http",
+            "behavior": "classical",
+            "format": "text",
+            "url": "https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/rule/google-play.list",
+            "path": "./ruleset/sounfury/proxy_google_play.list",
+            "interval": 86400
+        },
         "direct_direct": {
             "type": "http",
             "behavior": "classical",
@@ -674,6 +688,7 @@ function main(config) {
         "RULE-SET,ad_clash,🛑 广告隐私",
         "RULE-SET,ad_adblockclashlite,🛑 广告隐私",
         "RULE-SET,ad_reject,🛑 广告隐私",
+        "RULE-SET,proxy_google_play,🚀 国外网站",
         "RULE-SET,direct_direct,🎯 全球直连",
         "RULE-SET,direct_ChinaDomain,🎯 全球直连",
         "RULE-SET,direct_ChinaCompanyIp,🎯 全球直连",

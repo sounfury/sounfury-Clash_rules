@@ -1,0 +1,27 @@
+# Google Play 下载链路（高优先级强制代理）
+# 必须排在「全球直连 / GEOSITE,cn」之前，否则 services.googleapis.cn
+# 会被 geosite:cn 判为直连，接口返回国内 CDN，下载再走代理就会卡在「等待中」。
+
+# 要下载地址的接口（国内 GMS 常用）
+DOMAIN,services.googleapis.cn
+DOMAIN-SUFFIX,googleapis.cn
+DOMAIN-SUFFIX,googleapis.com
+
+# 安装包 CDN / 跳转
+DOMAIN-SUFFIX,xn--ngstr-lra8j.com
+DOMAIN-SUFFIX,gvt0.com
+DOMAIN-SUFFIX,gvt1.com
+DOMAIN-SUFFIX,gvt2.com
+DOMAIN-SUFFIX,gvt3.com
+DOMAIN-SUFFIX,ggpht.com
+DOMAIN-SUFFIX,gstatic.com
+DOMAIN-SUFFIX,gstatic.cn
+
+# 商店 / 客户端
+DOMAIN,play.googleapis.com
+DOMAIN,android.clients.google.com
+DOMAIN-SUFFIX,play.google.com
+DOMAIN-SUFFIX,android.com
+
+# 兜底（含 googleusercontent 等）
+DOMAIN-KEYWORD,google

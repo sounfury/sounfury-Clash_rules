@@ -65,6 +65,14 @@ dns:
     ipcidr:
       - 240.0.0.0/4
   nameserver-policy:
+    # Play / Google 相关必须用远程 DNS，避免 googleapis.cn 被国内 DNS 解到 58.254.* 后
+    # 再被 GEOSITE,cn / GEOIP,CN 直连，导致「规则模式下载一直等待」。
+    "+.googleapis.cn": https://posvdm.cloudflare-gateway.com/dns-query
+    "+.googleapis.com": https://posvdm.cloudflare-gateway.com/dns-query
+    "+.gvt1.com": https://posvdm.cloudflare-gateway.com/dns-query
+    "+.gvt2.com": https://posvdm.cloudflare-gateway.com/dns-query
+    "+.xn--ngstr-lra8j.com": https://posvdm.cloudflare-gateway.com/dns-query
+    "geosite:google": https://posvdm.cloudflare-gateway.com/dns-query
     "geosite:cn,private,apple": https://dns.alidns.com/dns-query
     "geosite:!cn,gfw": https://posvdm.cloudflare-gateway.com/dns-query
 
@@ -109,6 +117,12 @@ rulesets:
         ini_prefix: "clash-domain:"
       - url: https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockclashlite.list
       - url: https://raw.githubusercontent.com/PosvdM/Clash-rules/main/list/reject.list
+
+  # Google Play（必须在全球直连 / GEOSITE,cn 之前）
+  # 否则 services.googleapis.cn 常被判直连，规则模式无法下载 App。
+  - group: 🚀 国外网站
+    rules:
+      - url: $self/rule/google-play.list
 
   # 全球直连
   - group: 🎯 全球直连
