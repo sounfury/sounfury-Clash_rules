@@ -108,6 +108,13 @@ DOMAIN-SUFFIX,bitwarden.net
 DOMAIN,localhost
 IP-CIDR,127.0.0.0/8
 IP-CIDR6,::1/128
+# 局域网 / 私网直连（LocalSend、NAS、打印机等），避免纯 IP 落到 MATCH→漏网之鱼
+IP-CIDR,10.0.0.0/8,no-resolve
+IP-CIDR,172.16.0.0/12,no-resolve
+IP-CIDR,192.168.0.0/16,no-resolve
+IP-CIDR,169.254.0.0/16,no-resolve
+IP-CIDR6,fc00::/7,no-resolve
+IP-CIDR6,fe80::/10,no-resolve
 DOMAIN-SUFFIX,usertrust.com
 DOMAIN-SUFFIX,ssl.com
 DOMAIN,ota.nvidia.com
