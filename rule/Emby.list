@@ -1,7 +1,3 @@
-DOMAIN-SUFFIX,pilipiliultra.com
-
-DOMAIN-SUFFIX,biliblili.uk
-
 # custom 二次元emby
 DOMAIN,media.nijigem.by
 
@@ -10,3 +6,6 @@ DOMAIN-KEYWORD,iris
 
 # 漏网之鱼新增
 DOMAIN,emby.dnscf.dpdns.org
+
+# 膜拜 Emby
+DOMAIN,p3mc4.mobaiemby.site
