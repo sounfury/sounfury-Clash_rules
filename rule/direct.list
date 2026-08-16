@@ -129,3 +129,5 @@ DOMAIN-SUFFIX,ghfast.top
 DOMAIN-SUFFIX,misaka.one
 DOMAIN-SUFFIX,mymonitor.space
 DOMAIN,api.hills.im
+# Azure 自建服务器直连
+IP-CIDR,4.230.152.15/32,no-resolve
