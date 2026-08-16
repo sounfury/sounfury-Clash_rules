@@ -88,7 +88,8 @@ function main(config) {
             "+.xn--ngstr-lra8j.com": "https://posvdm.cloudflare-gateway.com/dns-query",
             "geosite:google": "https://posvdm.cloudflare-gateway.com/dns-query",
             "geosite:cn,private,apple": "https://dns.alidns.com/dns-query",
-            "geosite:!cn,gfw": "https://posvdm.cloudflare-gateway.com/dns-query"
+            "geosite:!cn,gfw": "https://posvdm.cloudflare-gateway.com/dns-query",
+            "emby.sounfury.me": "https://dns.cloudflare.com/dns-query"
         }
     };
 

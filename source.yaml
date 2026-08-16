@@ -75,6 +75,8 @@ dns:
     "geosite:google": https://posvdm.cloudflare-gateway.com/dns-query
     "geosite:cn,private,apple": https://dns.alidns.com/dns-query
     "geosite:!cn,gfw": https://posvdm.cloudflare-gateway.com/dns-query
+    # 自建 Emby：走 Cloudflare DoH，避免国内 DNS 污染/错误解析
+    "emby.sounfury.me": https://dns.cloudflare.com/dns-query
 
 hosts:
   iosapps.itunes.apple.com: hls.itunes.apple.com.mwcname.com
