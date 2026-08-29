@@ -133,3 +133,7 @@ DOMAIN,api.hills.im
 IP-CIDR,4.230.152.15/32,no-resolve
 # 自建 Emby（sounfury.me，DNS 见 source.yaml nameserver-policy → CF）
 DOMAIN,emby.sounfury.me
+
+# 黑与白
+DOMAIN-SUFFIX,fcapp.run
+DOMAIN-SUFFIX,hybgzs.com
