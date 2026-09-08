@@ -344,7 +344,7 @@ const GROUP_TEMPLATES = [
             "🇺🇲 美国节点",
             "🇸🇬 狮城节点",
             "🇯🇵 日本节点",
-            "🇹🇼 台湾节点",
+            "台湾节点",
             "🇪🇺 欧洲节点",
             "🇹🇷 土耳其节点",
             "🎬 辅订阅",
@@ -375,7 +375,7 @@ const GROUP_TEMPLATES = [
             "🇺🇲 美国节点",
             "🇸🇬 狮城节点",
             "🇯🇵 日本节点",
-            "🇹🇼 台湾节点",
+            "台湾节点",
             "🧊 冷门节点",
             "👋 手动切换"
         ],
@@ -391,7 +391,7 @@ const GROUP_TEMPLATES = [
             "🇭🇰 香港节点",
             "🇺🇲 美国节点",
             "🇯🇵 日本节点",
-            "🇹🇼 台湾节点",
+            "台湾节点",
             "🧊 冷门节点",
             "👋 手动切换"
         ]
@@ -406,7 +406,7 @@ const GROUP_TEMPLATES = [
             "🇭🇰 香港节点",
             "🇺🇲 美国节点",
             "🇯🇵 日本节点",
-            "🇹🇼 台湾节点",
+            "台湾节点",
             "🧊 冷门节点",
             "👋 手动切换",
             "DIRECT"
@@ -424,7 +424,7 @@ const GROUP_TEMPLATES = [
             "🇺🇲 美国节点",
             "🇸🇬 狮城节点",
             "🇯🇵 日本节点",
-            "🇹🇼 台湾节点",
+            "台湾节点",
             "🧊 冷门节点",
             "👋 手动切换"
         ],
@@ -441,7 +441,7 @@ const GROUP_TEMPLATES = [
             "🇭🇰 香港节点",
             "🇸🇬 狮城节点",
             "🇯🇵 日本节点",
-            "🇹🇼 台湾节点",
+            "台湾节点",
             "🧊 冷门节点",
             "👋 手动切换",
             "DIRECT"
@@ -468,7 +468,7 @@ const GROUP_TEMPLATES = [
             "🇭🇰 香港节点",
             "🇺🇲 美国节点",
             "🇯🇵 日本节点",
-            "🇹🇼 台湾节点",
+            "台湾节点",
             "🧊 冷门节点",
             "👋 手动切换",
             "DIRECT"
@@ -484,7 +484,7 @@ const GROUP_TEMPLATES = [
             "🇭🇰 香港节点",
             "🇺🇲 美国节点",
             "🇯🇵 日本节点",
-            "🇹🇼 台湾节点",
+            "台湾节点",
             "🧊 冷门节点",
             "👋 手动切换",
             "DIRECT"
@@ -502,7 +502,7 @@ const GROUP_TEMPLATES = [
             "🇭🇰 香港节点",
             "🇺🇲 美国节点",
             "🇯🇵 日本节点",
-            "🇹🇼 台湾节点",
+            "台湾节点",
             "🧊 冷门节点",
             "👋 手动切换"
         ]
@@ -517,7 +517,7 @@ const GROUP_TEMPLATES = [
             "🇭🇰 香港节点",
             "🇺🇲 美国节点",
             "🇯🇵 日本节点",
-            "🇹🇼 台湾节点",
+            "台湾节点",
             "🧊 冷门节点",
             "👋 手动切换",
             "DIRECT"
@@ -610,14 +610,15 @@ const GROUP_TEMPLATES = [
         "tolerance": 5
     },
     {
-        "name": "🇹🇼 台湾节点",
+        "name": "台湾节点",
         "type": "url-test",
         "from": "main",
         "filter": "(?i)🇹🇼|台湾|TW|Taiwan|Tai",
         "include-all": true,
         "url": "http://www.gstatic.com/generate_204",
         "interval": 300,
-        "tolerance": 5
+        "tolerance": 5,
+        "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png"
     },
     {
         "name": "🧊 冷门节点",

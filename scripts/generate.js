@@ -38,9 +38,15 @@ function resolveSelf(url, rawBase) {
     return url.replace(/^\$self/, rawBase);
 }
 
-/** 剥离名称开头的 Emoji 字符及其后空格（Unicode Emoji_Presentation 属性匹配） */
+/**
+ * 剥离名称开头的 Emoji 及其后空格。
+ * 国旗是两个 Regional Indicator（🇹🇼 = 🇹+🇼），只剥一个会剩下 🇼。
+ */
 function stripLeadingEmoji(name) {
-    return name.replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}]\uFE0F?\s*/u, '');
+    return name.replace(
+        /^(?:[\u{1F1E6}-\u{1F1FF}]{2}|[\p{Emoji_Presentation}\p{Extended_Pictographic}]\uFE0F?(?:\u200D[\p{Emoji_Presentation}\p{Extended_Pictographic}]\uFE0F?)*)\s*/u,
+        '',
+    );
 }
 
 /**
