@@ -411,10 +411,12 @@ function genStoverride() {
     const nameMap   = buildNameMap();
     const providers = buildRuleProviders();
     const rules     = buildRules(nameMap);
-    const groups    = buildLaidOutGroups({ includeAll: false, nameMap }).map(pg => {
+    // Stash：filter 必须配 include-all，否则组内 0 节点会被当成 DIRECT。
+    const groups    = buildLaidOutGroups({ includeAll: true, nameMap }).map(pg => {
         const g = { name: pg.name, type: pg.type };
         if (pg.proxies)      g.proxies      = pg.proxies;
         if (pg.filter)       g.filter       = pg.filter;
+        if (pg['include-all']) g['include-all'] = true;
         if (pg.url && pg.type !== 'select') g.url = pg.url;
         if (pg.interval && pg.type !== 'select') g.interval = pg.interval;
         if (pg.tolerance !== undefined && pg.type !== 'select') g.tolerance = pg.tolerance;
