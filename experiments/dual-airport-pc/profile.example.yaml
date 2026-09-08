@@ -4,7 +4,7 @@
 # Party：
 #   1. 新建本地配置，内容可仅如下
 #   2. 覆写挂 experiments/dual-airport-pc/override.js
-#   3. 保证 work\proxies\ 下有花云 / Hneko 文件（见 override.js 顶部注释）
+#   3. 花云 YAML 放 work\proxies\；Hneko 用 http 订阅（url 写链接，path 写本地缓存）
 
 mixed-port: 7890
 mode: rule

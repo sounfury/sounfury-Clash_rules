@@ -8,9 +8,10 @@
  *   output/stash/override.stoverride— Stash 覆写
  */
 
-const fs   = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
+const fs     = require('fs');
+const path   = require('path');
+const yaml   = require('js-yaml');
+const layout = require('./layout-subs');
 
 // ─── 路径常量 ─────────────────────────────────────────────────
 const ROOT        = path.resolve(__dirname, '..');
@@ -57,26 +58,45 @@ function buildNameMap() {
     return map;
 }
 
+/** 把 layout-subs.js 嵌进 Party 覆写（去掉 Node 的 module.exports） */
+function embedLayoutRuntime() {
+    const raw = fs.readFileSync(path.join(__dirname, 'layout-subs.js'), 'utf8').replace(/\r\n/g, '\n');
+    const cut = raw.search(/\nif \(typeof module !== 'undefined'/);
+    return (cut >= 0 ? raw.slice(0, cut) : raw).trimEnd();
+}
+
 /**
- * 将 EXCLUDE_PATTERN 合并为负向 lookahead，注入到 include-all 组的 filter 中。
- * - 无既有 filter：生成纯负向过滤 (?i)^(?!.*PATTERN).*
- * - 有既有 filter 且以 (?i)^ 开头：在 ^ 后插入负向 lookahead
- * - 有既有 filter 且以 ^ 开头：同上，保留 (?i)
- * - 其他（如不带锚点的简单词组）：在前方直接前置 lookahead
+ * source.yaml 策略组 → 客户端模板（保留 from / 语义 filter）。
+ * nameMap: 有 icon 的组「emoji名 → 无emoji名」。
  */
-function mergeExcludeFilter(existingFilter) {
-    const neg = `(?!.*(?:${EXCLUDE_PATTERN}))`;
-    if (!existingFilter) {
-        return `(?i)^${neg}.*`;
-    }
-    if (/^\(\?i\)\^/.test(existingFilter)) {
-        return existingFilter.replace(/^\(\?i\)\^/, `(?i)^${neg}`);
-    }
-    if (/^\^/.test(existingFilter)) {
-        return existingFilter.replace(/^\^/, `(?i)^${neg}`);
-    }
-    // fallback：前置负向 lookahead，不破坏原有逻辑
-    return `${neg}${existingFilter}`;
+function buildGroupTemplates(nameMap = {}) {
+    return src.proxy_groups.map(pg => {
+        const resolvedName = nameMap[pg.name] ?? pg.name;
+        const g = {
+            name: resolvedName,
+            type: pg.type,
+        };
+        if (pg.proxies)      g.proxies      = pg.proxies.map(p => nameMap[p] ?? p);
+        if (pg.from)         g.from         = pg.from;
+        if (pg.filter)       g.filter       = pg.filter;
+        if (pg['include-all']) g['include-all'] = true;
+        if (pg.url)          g.url          = pg.url;
+        if (pg.interval)     g.interval     = pg.interval;
+        if (pg.tolerance !== undefined) g.tolerance = pg.tolerance;
+        if (pg.icon)         g.icon         = pg.icon;
+        return g;
+    });
+}
+
+/**
+ * 按 subscriptions 展开策略组（注入前缀 filter、辅订阅组）。
+ */
+function buildLaidOutGroups({ includeAll, nameMap = {} }) {
+    return layout.layoutProxyGroups(buildGroupTemplates(nameMap), {
+        subscriptions: src.subscriptions,
+        excludePattern: EXCLUDE_PATTERN,
+        includeAll,
+    });
 }
 
 /**
@@ -163,8 +183,10 @@ function genMainIni() {
     lines.push('');
     lines.push('# 策略组');
 
+    const iniGroups = buildLaidOutGroups({ includeAll: false });
+
     // custom_proxy_group 行
-    for (const pg of src.proxy_groups) {
+    for (const pg of iniGroups) {
         const name = pg.name;
         const type = pg.type;
 
@@ -272,49 +294,11 @@ function buildRules(nameMap = {}) {
     return rules;
 }
 
-/**
- * 构建 proxy-groups 数组（JS 格式，保留全量字段）。
- * nameMap: 有 icon 的组「emoji名 → 无emoji名」，用于同步重命名 proxies 引用。
- */
-function buildProxyGroups(nameMap = {}) {
-    return src.proxy_groups.map(pg => {
-        // 有 icon 时去掉 name 开头的 emoji，避免客户端同时显示 emoji 和图标
-        const resolvedName = nameMap[pg.name] ?? pg.name;
-        const g = {
-            interval: 300,
-            url:      'http://www.gstatic.com/generate_204',
-            'max-failed-times': 3,
-            name: resolvedName,
-            type: pg.type,
-        };
-        // proxies 中的引用也需同步替换为新名
-        if (pg.proxies)      g.proxies      = pg.proxies.map(p => nameMap[p] ?? p);
-        if (pg['include-all'] !== undefined) g['include-all'] = pg['include-all'];
-        // include-all 组自动注入 exclude_remarks 负向过滤，无需额外 filter.js
-        if (pg['include-all']) {
-            g.filter = mergeExcludeFilter(pg.filter);
-        } else if (pg.filter) {
-            g.filter = pg.filter;
-        }
-        if (pg.url)          g.url          = pg.url;
-        if (pg.interval)     g.interval     = pg.interval;
-        if (pg.tolerance !== undefined) g.tolerance = pg.tolerance;
-        if (pg.icon)         g.icon         = pg.icon;
-        // 对 select 类型去掉 url 等测速字段
-        if (pg.type === 'select') {
-            delete g.url;
-            delete g.interval;
-            delete g['max-failed-times'];
-        }
-        return g;
-    });
-}
-
 function genPartyJs() {
     const nameMap    = buildNameMap();
     const providers  = buildRuleProviders();
     const rules      = buildRules(nameMap);
-    const groups     = buildProxyGroups(nameMap);
+    const templates  = buildGroupTemplates(nameMap);
 
     // 构建 general 字段覆盖代码
     const generalLines = Object.entries(src.general || {})
@@ -324,14 +308,45 @@ function genPartyJs() {
     const jsContent = `/**
  * override.js — mihomo-party 覆写脚本（自动生成，勿手动编辑）
  * 数据源：source.yaml
+ *
+ * 换主/辅订阅：改下方 SUBS.main（仅本覆写立刻生效），
+ * 或改 source.yaml subscriptions 后重新 generate（Party / Stash / subconverter 一起变）。
  */
 
-// 策略组通用配置
-const groupBase = {
-    interval: 300,
-    url: 'http://1.1.1.1/generate_204',
-    'max-failed-times': 3,
-};
+// ── 订阅角色：改 main 即可切换主订阅 ─────────────────────────
+const SUBS = ${JSON.stringify(src.subscriptions, null, 4)};
+
+const EXCLUDE_PATTERN = ${JSON.stringify(EXCLUDE_PATTERN)};
+
+${embedLayoutRuntime()}
+
+const GROUP_TEMPLATES = ${JSON.stringify(templates, null, 4)};
+
+/**
+ * 补全测速字段，去掉 select 不需要的项。
+ * @param {Record<string, any>} group
+ * @returns {Record<string, any>}
+ */
+function finalizePartyGroup(group) {
+    const out = Object.assign({}, group);
+    if (Array.isArray(group.proxies)) {
+        out.proxies = group.proxies.slice();
+    }
+    if (group.type === 'url-test') {
+        if (out.interval == null) out.interval = 300;
+        if (!out.url) out.url = 'http://www.gstatic.com/generate_204';
+        if (out['max-failed-times'] == null) out['max-failed-times'] = 3;
+    }
+    if (group.type === 'select') {
+        delete out.url;
+        delete out.interval;
+        delete out.tolerance;
+        delete out['max-failed-times'];
+        if (!out.filter) delete out['include-all'];
+    }
+    delete out.from;
+    return out;
+}
 
 /**
  * @param {Record<string, any>} config 原始 Clash 配置对象
@@ -348,7 +363,7 @@ function main(config) {
     }
 
     // 过滤代理节点名称（与 subconverter exclude_remarks 保持一致）
-    const _excReg = new RegExp(${JSON.stringify(EXCLUDE_PATTERN)}, 'i');
+    const _excReg = new RegExp(EXCLUDE_PATTERN, 'i');
     if (Array.isArray(config.proxies)) {
         config.proxies = config.proxies.filter(p => !_excReg.test(p.name));
     }
@@ -365,8 +380,12 @@ ${generalLines}
     // 覆盖 tun
     config['tun'] = ${JSON.stringify(src.tun, null, 4).replace(/^/gm, '    ').trim()};
 
-    // 覆盖策略组
-    config['proxy-groups'] = ${JSON.stringify(groups, null, 4).replace(/^/gm, '    ').trim()};
+    // 按 SUBS 展开主/辅/VPS 策略组
+    config['proxy-groups'] = layoutProxyGroups(GROUP_TEMPLATES, {
+        subscriptions: SUBS,
+        excludePattern: EXCLUDE_PATTERN,
+        includeAll: true,
+    }).map(finalizePartyGroup);
 
     // 覆盖规则集
     config['rule-providers'] = ${JSON.stringify(providers, null, 4).replace(/^/gm, '    ').trim()};
@@ -392,21 +411,13 @@ function genStoverride() {
     const nameMap   = buildNameMap();
     const providers = buildRuleProviders();
     const rules     = buildRules(nameMap);
-    const groups    = src.proxy_groups.map(pg => {
-        // 同 genPartyJs：有 icon 的组去掉开头 emoji
-        const resolvedName = nameMap[pg.name] ?? pg.name;
-        const g = { name: resolvedName, type: pg.type };
-        if (pg.proxies)      g.proxies      = pg.proxies.map(p => nameMap[p] ?? p);
-        if (pg['include-all'] !== undefined) g['include-all'] = pg['include-all'];
-        // include-all 组同步注入 exclude_remarks 负向过滤
-        if (pg['include-all']) {
-            g.filter = mergeExcludeFilter(pg.filter);
-        } else if (pg.filter) {
-            g.filter = pg.filter;
-        }
-        if (pg.url)          g.url          = pg.url;
-        if (pg.interval)     g.interval     = pg.interval;
-        if (pg.tolerance !== undefined) g.tolerance = pg.tolerance;
+    const groups    = buildLaidOutGroups({ includeAll: false, nameMap }).map(pg => {
+        const g = { name: pg.name, type: pg.type };
+        if (pg.proxies)      g.proxies      = pg.proxies;
+        if (pg.filter)       g.filter       = pg.filter;
+        if (pg.url && pg.type !== 'select') g.url = pg.url;
+        if (pg.interval && pg.type !== 'select') g.interval = pg.interval;
+        if (pg.tolerance !== undefined && pg.type !== 'select') g.tolerance = pg.tolerance;
         if (pg.icon)         g.icon         = pg.icon;
         return g;
     });
@@ -481,6 +492,30 @@ ${stashIcon}
 
 // ─── 主流程 ───────────────────────────────────────────────────
 
+function dumpSubscriptionPreview() {
+    const groups = buildLaidOutGroups({ includeAll: true });
+    const interesting = new Set([
+        '⚡ 自动选择',
+        '🏷️ 低倍率',
+        '🎬 辅订阅',
+        '🎬 Hneko',
+        '🐔 小鸡节点',
+        '🇭🇰 香港节点',
+        '🧊 冷门节点',
+        '📺 Emby',
+        'Emby',
+        '📨 Telegram',
+        'Telegram',
+    ]);
+    console.log('订阅布局预览：');
+    console.log(`   main = ${(src.subscriptions && src.subscriptions.main) || '(无)'}`);
+    for (const g of groups) {
+        if (!interesting.has(g.name)) continue;
+        const extra = g.proxies ? `proxies=[${g.proxies.join(', ')}]` : (g.filter || '');
+        console.log(`   ${g.name}: ${g.type} ${extra}`);
+    }
+}
+
 function main() {
     console.log('generate.js 开始执行...');
     mkdirs(OUT_SUB, OUT_PARTY, OUT_STASH);
@@ -489,6 +524,7 @@ function main() {
     genMainIni();
     genPartyJs();
     genStoverride();
+    dumpSubscriptionPreview();
 
     console.log('✅ 生成完毕：');
     console.log('   output/subconverter/base.yml');

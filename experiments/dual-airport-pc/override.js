@@ -1,4 +1,7 @@
 /**
+ * 已废弃：本地 proxy-providers 双机场聚合只兼容 Clash Party。
+ * 正式方案改走云端加 [🌸]/[H]/oracle 前缀 + source.yaml subscriptions。
+ *
  * 实验：双机场隔离 — 纯 JS 覆写（仅电脑端 mihomo-party）
  * experiments/dual-airport-pc/override.js
  *
@@ -12,14 +15,19 @@
  *   1. 任意本地空配置挂上本覆写即可（不必写 yaml providers）
  *   2. 花云阅后即焚 YAML 放到（相对 work）：
  *        %APPDATA%\mihomo-party\work\proxies\Flower_Trojan.yaml
- *   3. Hneko 同理 work\proxies\Hneko.yaml，或改下方 HNEKO 为 type:http
+ *   3. Hneko 用 type:http：订阅写 url，path 只写本地缓存文件
  *   4. 改路径只改本文件顶部 PROVIDER_SPECS
+ *
+ * 注意：新版 mihomo 已移除 global-client-fingerprint，
+ * 指纹改由 provider.override.client-fingerprint 写到每个节点上。
  */
 
 // ── 唯一需要改的地方：节点源 ─────────────────────────────────
-// path 相对 mihomo 工作目录 = %APPDATA%\mihomo-party\work
+// path 必须是 HomeDir 下的相对路径（Party 校验时 HomeDir 可能是 work 或 test）
+// http 订阅：url = 远程链接；path = 本地缓存。二者不能对调。
 const PROVIDER_FLOWER = 'Flower';
 const PROVIDER_HNEKO = 'Hneko';
+const CLIENT_FINGERPRINT = 'chrome';
 
 const PROVIDER_SPECS = {
     [PROVIDER_FLOWER]: {
@@ -35,16 +43,15 @@ const PROVIDER_SPECS = {
         },
         override: {
             'additional-prefix': '[花] ',
+            'client-fingerprint': CLIENT_FINGERPRINT,
         },
     },
     [PROVIDER_HNEKO]: {
-        type: 'file',
+        type: 'http',
+        // 订阅写 url，不要写进 path。token 只放本机 Party 覆写，勿提交仓库。
+        url: 'https://YOUR_HNEKO_SUBSCRIBE_URL',
         path: './proxies/Hneko.yaml',
-        // 若要用远程订阅，改成：
-        // type: 'http',
-        // url: 'https://....',
-        // path: './proxies/Hneko.yaml',
-        // interval: 3600,
+        interval: 3600,
         'health-check': {
             enable: true,
             url: 'https://www.gstatic.com/generate_204',
@@ -53,6 +60,7 @@ const PROVIDER_SPECS = {
         },
         override: {
             'additional-prefix': '[H] ',
+            'client-fingerprint': CLIENT_FINGERPRINT,
         },
     },
 };
@@ -84,10 +92,30 @@ function cloneProviderSpec(spec) {
     if (spec.interval != null) {
         cloned.interval = spec.interval;
     }
-    if (spec.override) {
-        cloned.override = { ...spec.override };
-    }
+    cloned.override = {
+        'client-fingerprint': CLIENT_FINGERPRINT,
+        ...(spec.override || {}),
+    };
     return cloned;
+}
+
+/**
+ * 新版内核不再接受全局指纹，按节点补上 client-fingerprint。
+ * @param {Record<string, any>} config
+ */
+function applyClientFingerprintToProxies(config) {
+    if (!Array.isArray(config.proxies)) {
+        return;
+    }
+    for (const proxy of config.proxies) {
+        if (!proxy || typeof proxy !== 'object') {
+            continue;
+        }
+        if (proxy['client-fingerprint']) {
+            continue;
+        }
+        proxy['client-fingerprint'] = CLIENT_FINGERPRINT;
+    }
 }
 
 /**
@@ -138,7 +166,8 @@ function main(config) {
     config['log-level'] = 'info';
     config['unified-delay'] = true;
     config['find-process-mode'] = 'strict';
-    config['global-client-fingerprint'] = 'chrome';
+    delete config['global-client-fingerprint'];
+    applyClientFingerprintToProxies(config);
 
     config.dns = {
         enable: true,
@@ -467,9 +496,9 @@ function main(config) {
         },
         direct_apple_cdn: {
             type: 'http',
-            behavior: 'classical',
+            behavior: 'domain',
             format: 'text',
-            url: 'https://ruleset.skk.moe/Clash/non_ip/apple_cdn.txt',
+            url: 'https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt',
             path: './ruleset/sounfury/direct_apple_cdn.list',
             interval: 86400,
         },

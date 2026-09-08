@@ -666,9 +666,9 @@ function main(config) {
         },
         "direct_apple_cdn": {
             "type": "http",
-            "behavior": "classical",
+            "behavior": "domain",
             "format": "text",
-            "url": "https://ruleset.skk.moe/Clash/non_ip/apple_cdn.txt",
+            "url": "https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt",
             "path": "./ruleset/sounfury/direct_apple_cdn.list",
             "interval": 86400
         },

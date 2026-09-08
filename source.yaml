@@ -28,6 +28,26 @@ general:
 # ─── 节点过滤正则（subconverter exclude_remarks） ─────────────
 exclude_remarks: '(?i)(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)'
 
+# ─── 订阅角色（换主订阅只改 main；前缀必须与云端聚合一致） ─────
+# kind: airport = 机场；vps = 小鸡。main 必须是 airport。
+# 非 main 的 airport 会生成「🎬 源名」测速组，并汇总进「🎬 辅订阅」。
+# prefix 普通字符串按字面匹配（自动转义）；以 ^ 或 (?i)^ 开头则当正则。
+subscriptions:
+  main: 花云
+  sources:
+    花云:
+      prefix: '[🌸]'
+      kind: airport
+    Hneko:
+      prefix: '[H]'
+      kind: airport
+      roles: [media, bulk]
+      # Emby 日区容易被 ban，这个辅源测速组自己剔除日本
+      exclude: '(?i)🇯🇵|日本|东京|東京|Japan|Tokyo'
+    Oracle:
+      prefix: '(?i)^oracle'
+      kind: vps
+
 # ─── DNS（原 GeneralClashConfig.yml 全量合入） ─────────────────
 dns:
   enable: true
@@ -133,7 +153,10 @@ rulesets:
       - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list
       - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list
       - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list
-      - url: https://ruleset.skk.moe/Clash/non_ip/apple_cdn.txt
+      # Sukka 已将 Clash/non_ip/apple_cdn.txt 废弃，合并进 domainset（behavior: domain）
+      - url: https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt
+        behavior: domain
+        ini_prefix: "clash-domain:"
       - url: https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt
       - url: https://ruleset.skk.moe/Clash/non_ip/apple_services.txt
       - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list
@@ -206,6 +229,8 @@ tail_rules:
 # ─── 策略组 ──────────────────────────────────────────────────
 # include-all / filter / icon 仅在 JS / stoverride 产物中保留；
 # INI 产物只输出 name / type / proxies / url / interval / tolerance。
+# from: main | vps 由 generate.js 按 subscriptions 注入前缀隔离。
+# 🎬 辅订阅 / 🎬 <源名> 由非 main 的 airport 自动生成，不必手写。
 proxy_groups:
   # ── 业务组 ────────────────────────────────────────────────
 
@@ -220,11 +245,11 @@ proxy_groups:
       - 🇹🇼 台湾节点
       - 🇪🇺 欧洲节点
       - 🇹🇷 土耳其节点
+      - 🎬 辅订阅
       - 🐔 小鸡节点
       - 🏷️ 低倍率
       - 🧊 冷门节点
       - DIRECT
-    include-all: true
 
   - name: 🚀 国外网站
     type: select
@@ -235,6 +260,7 @@ proxy_groups:
   - name: 📨 Telegram
     type: select
     proxies:
+      - 🎬 辅订阅
       - ⚡ 自动选择
       - 🏷️ 低倍率
       - 🇭🇰 香港节点
@@ -276,6 +302,8 @@ proxy_groups:
   - name: 📺 Emby
     type: select
     proxies:
+      - 🎬 辅订阅
+      - DIRECT
       - 🏷️ 低倍率
       - 🇭🇰 香港节点
       - 🇺🇲 美国节点
@@ -284,7 +312,6 @@ proxy_groups:
       - 🇹🇼 台湾节点
       - 🧊 冷门节点
       - 👋 手动切换
-      - DIRECT
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Emby.png
 
   - name: 🎶 Spotify
@@ -338,6 +365,8 @@ proxy_groups:
   - name: 📦 大宗流量
     type: select
     proxies:
+      - 🎬 辅订阅
+      - DIRECT
       - 🏷️ 低倍率
       - 🇸🇬 狮城节点
       - 🇭🇰 香港节点
@@ -346,7 +375,6 @@ proxy_groups:
       - 🇹🇼 台湾节点
       - 🧊 冷门节点
       - 👋 手动切换
-      - DIRECT
 
   - name: 💻 环境仓库
     type: select
@@ -362,12 +390,13 @@ proxy_groups:
       - 👋 手动切换
       - DIRECT
 
-  # ── 自动测速组 ────────────────────────────────────────────
+  # ── 自动测速组（from: main 只吃主订阅前缀） ────────────────
 
   - name: ⚡ 自动选择
     type: url-test
+    from: main
     include-all: true
-    filter: '(?i)^(?=.*(🇭🇰|香港|HK|Hong\s*Kong|🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞|🇸🇬|新加坡|狮城|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan))(?!.*(实验|低倍率|小鸡|chicken|vps|剩余|Expire|Traffic|GB|官网|网址|官址|套餐|应急|失联|重置|到期|过期|订阅)).*'
+    filter: '(?i)^(?=.*(🇭🇰|香港|HK|Hong\s*Kong|🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞|🇸🇬|新加坡|狮城|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan))(?!.*(实验|低倍率)).*'
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
@@ -375,6 +404,7 @@ proxy_groups:
   # 低倍率节点命名不统一，兼容"实验/低倍/0.x/折扣"等常见写法
   - name: 🏷️ 低倍率
     type: url-test
+    from: main
     include-all: true
     filter: '(?i)(实验|低倍率|低倍|0\.[1-9]\s*(?:x|倍)?|[1-5]折)'
     url: https://www.gstatic.com/generate_204
@@ -382,17 +412,15 @@ proxy_groups:
     tolerance: 5
 
   - name: 🐔 小鸡节点
-    type: url-test
+    type: select
+    from: vps
     include-all: true
-    filter: '(?i)chicken|vps|server|小鸡|鸡'
-    url: http://www.gstatic.com/generate_204
-    interval: 300
-    tolerance: 5
 
   # ── 地区组 ───────────────────────────────────────────────
 
   - name: 🇭🇰 香港节点
     type: url-test
+    from: main
     include-all: true
     filter: '(?i)🇭🇰|香港|HK|Hong\s*Kong'
     url: http://www.gstatic.com/generate_204
@@ -401,6 +429,7 @@ proxy_groups:
 
   - name: 🇺🇲 美国节点
     type: url-test
+    from: main
     include-all: true
     filter: '(?i)🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞'
     url: http://www.gstatic.com/generate_204
@@ -409,6 +438,7 @@ proxy_groups:
 
   - name: 🇸🇬 狮城节点
     type: url-test
+    from: main
     include-all: true
     filter: '(?i)🇸🇬|新加坡|狮城|SG|Singapore'
     url: http://www.gstatic.com/generate_204
@@ -417,6 +447,7 @@ proxy_groups:
 
   - name: 🇪🇺 欧洲节点
     type: url-test
+    from: main
     include-all: true
     filter: '(?i)🇪🇺|欧洲|Europe|🇩🇪|德国|Germany|Frankfurt|法兰克福|Berlin|柏林|🇳🇱|荷兰|Netherlands|Amsterdam|阿姆斯特丹|🇬🇧|英国|United.?Kingdom|London|伦敦|🇫🇷|法国|France|Paris|巴黎|🇮🇪|爱尔兰|Ireland|Dublin|都柏林'
     url: http://www.gstatic.com/generate_204
@@ -425,6 +456,7 @@ proxy_groups:
 
   - name: 🇹🇷 土耳其节点
     type: url-test
+    from: main
     include-all: true
     filter: '(?i)🇹🇷|土耳其|TR|Turkey|Turkiye|Türkiye|Istanbul'
     url: http://www.gstatic.com/generate_204
@@ -433,6 +465,7 @@ proxy_groups:
 
   - name: 🇯🇵 日本节点
     type: url-test
+    from: main
     include-all: true
     filter: '(?i)🇯🇵|日本|东京|JP|Japan'
     url: http://www.gstatic.com/generate_204
@@ -441,17 +474,19 @@ proxy_groups:
 
   - name: 🇹🇼 台湾节点
     type: url-test
+    from: main
     include-all: true
     filter: '(?i)🇹🇼|台湾|TW|Taiwan|Tai'
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
 
-  # 负向筛选常见地区和订阅信息节点，保留主流地区以外的可选出口
+  # 负向筛选常见地区，保留主订阅里主流地区以外的可选出口
   - name: 🧊 冷门节点
     type: select
+    from: main
     include-all: true
-    filter: '^(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|🇺🇲|美国|洛杉矶|圣何塞|US|United.?States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan|剩余|Expire|Traffic|GB)).*'
+    filter: '^(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|🇺🇲|美国|洛杉矶|圣何塞|US|United.?States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan)).*'
 
   # ── 特殊组 ───────────────────────────────────────────────
 

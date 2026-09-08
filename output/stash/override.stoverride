@@ -62,12 +62,11 @@ proxy-groups: #!replace
       - 🇹🇼 台湾节点
       - 🇪🇺 欧洲节点
       - 🇹🇷 土耳其节点
+      - 🎬 辅订阅
       - 🐔 小鸡节点
       - 🏷️ 低倍率
       - 🧊 冷门节点
       - DIRECT
-    include-all: true
-    filter: (?i)^(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联))).*
   - name: 🚀 国外网站
     type: select
     proxies:
@@ -76,6 +75,7 @@ proxy-groups: #!replace
   - name: Telegram
     type: select
     proxies:
+      - 🎬 辅订阅
       - ⚡ 自动选择
       - 🏷️ 低倍率
       - 🇭🇰 香港节点
@@ -114,6 +114,8 @@ proxy-groups: #!replace
   - name: Emby
     type: select
     proxies:
+      - 🎬 辅订阅
+      - DIRECT
       - 🏷️ 低倍率
       - 🇭🇰 香港节点
       - 🇺🇲 美国节点
@@ -122,7 +124,6 @@ proxy-groups: #!replace
       - 🇹🇼 台湾节点
       - 🧊 冷门节点
       - 👋 手动切换
-      - DIRECT
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Emby.png
   - name: Spotify
     type: select
@@ -171,6 +172,8 @@ proxy-groups: #!replace
   - name: 📦 大宗流量
     type: select
     proxies:
+      - 🎬 辅订阅
+      - DIRECT
       - 🏷️ 低倍率
       - 🇸🇬 狮城节点
       - 🇭🇰 香港节点
@@ -179,7 +182,6 @@ proxy-groups: #!replace
       - 🇹🇼 台湾节点
       - 🧊 冷门节点
       - 👋 手动切换
-      - DIRECT
   - name: 💻 环境仓库
     type: select
     proxies:
@@ -195,81 +197,78 @@ proxy-groups: #!replace
       - DIRECT
   - name: ⚡ 自动选择
     type: url-test
-    include-all: true
     filter: >-
-      (?i)^(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?=.*(🇭🇰|香港|HK|Hong\s*Kong|🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞|🇸🇬|新加坡|狮城|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan))(?!.*(实验|低倍率|小鸡|chicken|vps|剩余|Expire|Traffic|GB|官网|网址|官址|套餐|应急|失联|重置|到期|过期|订阅)).*
+      (?i)^(?!oracle)(?!.*\[H\])(?=.*\[🌸\])(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?=.*(🇭🇰|香港|HK|Hong\s*Kong|🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞|🇸🇬|新加坡|狮城|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan))(?!.*(实验|低倍率)).*
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
   - name: 🏷️ 低倍率
     type: url-test
-    include-all: true
-    filter: (?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)(实验|低倍率|低倍|0\.[1-9]\s*(?:x|倍)?|[1-5]折)
+    filter: (?i)^(?!oracle)(?!.*\[H\])(?=.*\[🌸\])(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?=.*(?:(实验|低倍率|低倍|0\.[1-9]\s*(?:x|倍)?|[1-5]折))).*
     url: https://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-  - name: 🐔 小鸡节点
+  - name: 🎬 辅订阅
+    type: select
+    proxies:
+      - 🎬 Hneko
+  - name: 🎬 Hneko
     type: url-test
-    include-all: true
-    filter: (?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)chicken|vps|server|小鸡|鸡
+    filter: (?i)^(?!oracle)(?!.*\[🌸\])(?=.*\[H\])(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?!.*(?:🇯🇵|日本|东京|東京|Japan|Tokyo)).*
     url: http://www.gstatic.com/generate_204
     interval: 300
-    tolerance: 5
+    tolerance: 50
+  - name: 🐔 小鸡节点
+    type: select
+    filter: (?i)^(?=oracle)(?!.*\[🌸\])(?!.*\[H\])(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联))).*
   - name: 🇭🇰 香港节点
     type: url-test
-    include-all: true
-    filter: (?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇭🇰|香港|HK|Hong\s*Kong
+    filter: (?i)^(?!oracle)(?!.*\[H\])(?=.*\[🌸\])(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?=.*(?:🇭🇰|香港|HK|Hong\s*Kong)).*
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
   - name: 🇺🇲 美国节点
     type: url-test
-    include-all: true
-    filter: (?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞
+    filter: (?i)^(?!oracle)(?!.*\[H\])(?=.*\[🌸\])(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?=.*(?:🇺🇲|🇺🇸|美国|US|United.?States|洛杉矶|圣何塞)).*
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
   - name: 🇸🇬 狮城节点
     type: url-test
-    include-all: true
-    filter: (?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇸🇬|新加坡|狮城|SG|Singapore
+    filter: (?i)^(?!oracle)(?!.*\[H\])(?=.*\[🌸\])(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?=.*(?:🇸🇬|新加坡|狮城|SG|Singapore)).*
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
   - name: 🇪🇺 欧洲节点
     type: url-test
-    include-all: true
     filter: >-
-      (?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇪🇺|欧洲|Europe|🇩🇪|德国|Germany|Frankfurt|法兰克福|Berlin|柏林|🇳🇱|荷兰|Netherlands|Amsterdam|阿姆斯特丹|🇬🇧|英国|United.?Kingdom|London|伦敦|🇫🇷|法国|France|Paris|巴黎|🇮🇪|爱尔兰|Ireland|Dublin|都柏林
+      (?i)^(?!oracle)(?!.*\[H\])(?=.*\[🌸\])(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?=.*(?:🇪🇺|欧洲|Europe|🇩🇪|德国|Germany|Frankfurt|法兰克福|Berlin|柏林|🇳🇱|荷兰|Netherlands|Amsterdam|阿姆斯特丹|🇬🇧|英国|United.?Kingdom|London|伦敦|🇫🇷|法国|France|Paris|巴黎|🇮🇪|爱尔兰|Ireland|Dublin|都柏林)).*
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
   - name: 🇹🇷 土耳其节点
     type: url-test
-    include-all: true
-    filter: (?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇹🇷|土耳其|TR|Turkey|Turkiye|Türkiye|Istanbul
+    filter: >-
+      (?i)^(?!oracle)(?!.*\[H\])(?=.*\[🌸\])(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?=.*(?:🇹🇷|土耳其|TR|Turkey|Turkiye|Türkiye|Istanbul)).*
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
   - name: 🇯🇵 日本节点
     type: url-test
-    include-all: true
-    filter: (?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇯🇵|日本|东京|JP|Japan
+    filter: (?i)^(?!oracle)(?!.*\[H\])(?=.*\[🌸\])(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?=.*(?:🇯🇵|日本|东京|JP|Japan)).*
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
   - name: 🇹🇼 台湾节点
     type: url-test
-    include-all: true
-    filter: (?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?i)🇹🇼|台湾|TW|Taiwan|Tai
+    filter: (?i)^(?!oracle)(?!.*\[H\])(?=.*\[🌸\])(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?=.*(?:🇹🇼|台湾|TW|Taiwan|Tai)).*
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
   - name: 🧊 冷门节点
     type: select
-    include-all: true
     filter: >-
-      (?i)^(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|🇺🇲|美国|洛杉矶|圣何塞|US|United.?States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan|剩余|Expire|Traffic|GB)).*
+      (?i)^(?!oracle)(?!.*\[H\])(?=.*\[🌸\])(?!.*(?:(?:\d+(\.\d*)?\s*GB|traffic|expire|premium|github|isp|流量|官网|网址|官址|机场|套餐|应急|时间|重置|剩余|[到过]期|订阅|失联)))(?!.*(🇭🇰|香港|HK|Hong|🇺🇸|🇺🇲|美国|洛杉矶|圣何塞|US|United.?States|🇸🇬|新加坡|狮|SG|Singapore|🇯🇵|日本|东京|JP|Japan|🇹🇼|台湾|TW|Tai|Taiwan)).*
   - name: 🛑 广告隐私
     type: select
     proxies:
@@ -339,9 +338,9 @@ rule-providers: #!replace
     interval: 86400
   direct_apple_cdn:
     type: http
-    behavior: classical
+    behavior: domain
     format: text
-    url: https://ruleset.skk.moe/Clash/non_ip/apple_cdn.txt
+    url: https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt
     path: ./ruleset/sounfury/direct_apple_cdn.list
     interval: 86400
   direct_apple_cn:
