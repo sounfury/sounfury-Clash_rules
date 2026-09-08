@@ -49,17 +49,22 @@ function stripLeadingEmoji(name) {
     );
 }
 
+function isLeadingFlagEmoji(name) {
+    return /^[\u{1F1E6}-\u{1F1FF}]{2}/u.test(String(name || ''));
+}
+
 /**
  * 构建「有 icon 的组」名称映射表：原始 emoji 名 → 去 emoji 名。
  * 仅 JS / stoverride 产物使用，INI 继续保留完整 emoji 名。
+ * keepFlagEmoji: Stash 策略列表靠组名前缀显示旗帜，国旗不能剥掉。
  */
-function buildNameMap() {
+function buildNameMap({ keepFlagEmoji = false } = {}) {
     const map = {};
     for (const pg of src.proxy_groups) {
-        if (pg.icon) {
-            const stripped = stripLeadingEmoji(pg.name);
-            if (stripped !== pg.name) map[pg.name] = stripped;
-        }
+        if (!pg.icon) continue;
+        if (keepFlagEmoji && isLeadingFlagEmoji(pg.name)) continue;
+        const stripped = stripLeadingEmoji(pg.name);
+        if (stripped !== pg.name) map[pg.name] = stripped;
     }
     return map;
 }
@@ -414,7 +419,12 @@ ${generalLines}
  * Stash 的 #!replace 需要紧跟在 key 后面的同行注释中。
  */
 function genStoverride() {
-    const nameMap   = buildNameMap();
+    const nameMap   = buildNameMap({ keepFlagEmoji: true });
+    for (const pg of src.proxy_groups) {
+        if (pg.stash_name) {
+            nameMap[pg.name] = pg.stash_name;
+        }
+    }
     const providers = buildRuleProviders();
     const rules     = buildRules(nameMap);
     // Stash：filter 必须配 include-all，否则组内 0 节点会被当成 DIRECT。

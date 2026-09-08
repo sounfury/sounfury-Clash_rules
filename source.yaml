@@ -488,8 +488,8 @@ proxy_groups:
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 5
-    # 国区 iOS / Stash 不渲染 🇹🇼，改用 PNG；有 icon 时 JS/stoverride 会去掉名前 emoji
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png
+    # 国区 Stash 不渲染 🇹🇼，组名前改用 TW；Clash / Party 仍用旗
+    stash_name: TW 台湾节点
 
   # 负向筛选常见地区，保留主订阅里主流地区以外的可选出口
   - name: 🧊 冷门节点
