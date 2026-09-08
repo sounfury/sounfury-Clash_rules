@@ -359,6 +359,7 @@ const GROUP_TEMPLATES = [
         "type": "select",
         "proxies": [
             "⚡ 自动选择",
+            "🐔 小鸡节点",
             "👋 手动切换"
         ]
     },
@@ -368,6 +369,7 @@ const GROUP_TEMPLATES = [
         "proxies": [
             "🎬 辅订阅",
             "⚡ 自动选择",
+            "🐔 小鸡节点",
             "🏷️ 低倍率",
             "🇭🇰 香港节点",
             "🇺🇲 美国节点",
@@ -416,6 +418,7 @@ const GROUP_TEMPLATES = [
         "proxies": [
             "🎬 辅订阅",
             "DIRECT",
+            "🐔 小鸡节点",
             "🏷️ 低倍率",
             "🇭🇰 香港节点",
             "🇺🇲 美国节点",
@@ -432,6 +435,7 @@ const GROUP_TEMPLATES = [
         "type": "select",
         "proxies": [
             "🇹🇷 土耳其节点",
+            "🐔 小鸡节点",
             "🏷️ 低倍率",
             "🇺🇲 美国节点",
             "🇭🇰 香港节点",
@@ -450,6 +454,7 @@ const GROUP_TEMPLATES = [
         "proxies": [
             "🇪🇺 欧洲节点",
             "🇺🇲 美国节点",
+            "🐔 小鸡节点",
             "👋 手动切换"
         ]
     },
@@ -458,6 +463,7 @@ const GROUP_TEMPLATES = [
         "type": "select",
         "proxies": [
             "🇸🇬 狮城节点",
+            "🐔 小鸡节点",
             "🏷️ 低倍率",
             "🇭🇰 香港节点",
             "🇺🇲 美国节点",
@@ -473,6 +479,7 @@ const GROUP_TEMPLATES = [
         "type": "select",
         "proxies": [
             "🇸🇬 狮城节点",
+            "🐔 小鸡节点",
             "🏷️ 低倍率",
             "🇭🇰 香港节点",
             "🇺🇲 美国节点",
@@ -489,6 +496,7 @@ const GROUP_TEMPLATES = [
         "proxies": [
             "🎬 辅订阅",
             "DIRECT",
+            "🐔 小鸡节点",
             "🏷️ 低倍率",
             "🇸🇬 狮城节点",
             "🇭🇰 香港节点",
