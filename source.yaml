@@ -45,7 +45,8 @@ subscriptions:
       # Emby 日区容易被 ban，这个辅源测速组自己剔除日本
       exclude: '(?i)🇯🇵|日本|东京|東京|Japan|Tokyo'
     Oracle:
-      prefix: '(?i)^oracle'
+      # 小鸡节点统一以 🗄️ 开头，例如 🗄️|🇺🇸 美国 Oracle Vless
+      prefix: '^🗄️'
       kind: vps
 
 # ─── DNS（原 GeneralClashConfig.yml 全量合入） ─────────────────

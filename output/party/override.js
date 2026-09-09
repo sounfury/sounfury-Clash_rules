@@ -24,7 +24,7 @@ const SUBS = {
             "exclude": "(?i)🇯🇵|日本|东京|東京|Japan|Tokyo"
         },
         "Oracle": {
-            "prefix": "(?i)^oracle",
+            "prefix": "^🗄️",
             "kind": "vps"
         }
     }
@@ -37,7 +37,7 @@ const EXCLUDE_PATTERN = "(?:\\d+(\\.\\d*)?\\s*GB|traffic|expire|premium|github|i
  * generate.js 在 Node 里 require；也会整段嵌入 Party override.js。
  *
  * 约定：
- *   prefix 以 ^ 或 (?i)^ 开头 → 锚定正则（如 (?i)^oracle）
+ *   prefix 以 ^ 或 (?i)^ 开头 → 锚定正则（如 ^🗄️）
  *   其余 → 字面量子串（如 [🌸]、[H]，自动转义）
  */
 
