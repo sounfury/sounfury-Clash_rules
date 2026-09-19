@@ -7,6 +7,9 @@ DOMAIN-SUFFIX,cdn.steamstatic.com
 DOMAIN,dl.steam.clngaa.com
 DOMAIN,st.dl.eccdnx.com
 DOMAIN,xz.pphimalayanrt.com
+# 稳健
+DOMAIN-SUFFIX,wenjian.de
+
 IP-CIDR,103.10.124.0/24,no-resolve
 IP-CIDR,103.10.125.0/24,no-resolve
 IP-CIDR,103.28.54.0/24,no-resolve
