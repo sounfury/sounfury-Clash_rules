@@ -1,37 +1,25 @@
 # sounfury-Clash_rules
 
-自用 Clash 分流规则仓库。以 `source.yaml` 为唯一数据源，由 GitHub Action 自动生成各客户端产物。
+自用 Clash 分流规则仓库。分流配置写在 `routing.yaml`，由 3x-ui 和节点合并后下发给 Party、Stash 等客户端，客户端不需要覆写。
 
----
+## 使用方式
 
-## 各客户端使用方式
+在 3x-ui 的 Clash 订阅设置里：
 
-### subconverter（Clash / Mihomo / Clash Verge 等）
+1. 开启自定义路由，路由来源填：
 
-将以下地址作为 subconverter 后端的 **远程配置（config）** 参数：
+   ```
+   https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/routing.yaml
+   ```
 
-```
-https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/output/subconverter/main.ini
-```
+2. 开启 `subClashRemoteDNS`，`dns` 和 `sniffer` 才会下发（需要 3x-ui v3.11.0 及以上）。
 
-### mihomo-party 覆写脚本
-
-在 mihomo-party「覆写」页面导入以下 JS 脚本地址：
-
-```
-https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/output/party/override.js
-```
-
-### Stash 覆写（.stoverride）
-
-在 Stash「覆写」设置中添加以下地址：
-
-```
-https://raw.githubusercontent.com/sounfury/sounfury-Clash_rules/main/output/stash/override.stoverride
-```
-
----
+客户端直接订阅 3x-ui 的地址即可。
 
 ## 维护
 
-只需编辑 `source.yaml` 或 `rule/*.list`，推送后 GitHub Action 自动更新以上三个产物。
+手工编辑 `routing.yaml` 或 `rule/*.list`，推送后生效，没有生成步骤。
+
+- 3x-ui 对 `routing.yaml` 有约 10 分钟缓存，客户端更新订阅后才会拿到新配置。
+- `hosts`、`tun` 和通用参数不会下发，这些设置留在客户端。
+- 分组按节点名前缀筛选：`[🌸]` 主订阅，`[H]` 辅订阅，`🗄️` 自建小鸡。
