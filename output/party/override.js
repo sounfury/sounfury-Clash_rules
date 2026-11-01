@@ -720,36 +720,9 @@ function main(config) {
             "https://223.5.5.5/dns-query"
         ],
         "nameserver": [
-            "https://dns.alidns.com/dns-query"
-        ],
-        "proxy-server-nameserver": [
             "https://dns.alidns.com/dns-query",
             "https://doh.pub/dns-query"
-        ],
-        "fallback": [
-            "https://dns.cloudflare.com/dns-query"
-        ],
-        "fallback-filter": {
-            "geoip": true,
-            "geoip-code": "CN",
-            "geosite": [
-                "gfw"
-            ],
-            "ipcidr": [
-                "240.0.0.0/4"
-            ]
-        },
-        "nameserver-policy": {
-            "+.googleapis.cn": "https://posvdm.cloudflare-gateway.com/dns-query",
-            "+.googleapis.com": "https://posvdm.cloudflare-gateway.com/dns-query",
-            "+.gvt1.com": "https://posvdm.cloudflare-gateway.com/dns-query",
-            "+.gvt2.com": "https://posvdm.cloudflare-gateway.com/dns-query",
-            "+.xn--ngstr-lra8j.com": "https://posvdm.cloudflare-gateway.com/dns-query",
-            "geosite:google": "https://posvdm.cloudflare-gateway.com/dns-query",
-            "geosite:cn,private,apple": "https://dns.alidns.com/dns-query",
-            "geosite:!cn,gfw": "https://posvdm.cloudflare-gateway.com/dns-query",
-            "emby.sounfury.me": "https://dns.cloudflare.com/dns-query"
-        }
+        ]
     };
 
     // 覆盖 sniffer
