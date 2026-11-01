@@ -140,3 +140,6 @@ DOMAIN,emby.sounfury.me
 # 黑与白
 DOMAIN-SUFFIX,fcapp.run
 DOMAIN-SUFFIX,hybgzs.com
+
+# ECH 的外层 SNI：LINUX DO iOS 客户端内置 DoH + ECH 直连 Cloudflare，看不到真实域名；走 MATCH 时新加坡节点不通 IPv6
+DOMAIN,cloudflare-ech.com
